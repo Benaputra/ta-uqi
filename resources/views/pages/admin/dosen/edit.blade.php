@@ -20,11 +20,14 @@
         <div class="row">
             <div class="col-12 table-responsive">
                 <h1>HEHEHEHEHHEHE</h1>
-                <form action="{{ route('dosen.update', $dosen->id) }}" method="POST">
+                <form action="{{ route('dosen.update', $dosen->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="text" name="name" id="name" value="{{ $dosen->name }}">
-                    <input type="text" name="name" id="name" value="{{ $dosen->user->email }}">
+                    <input type="text" name="nip" id="nip" value="{{ $dosen->nip }}">
+                    <input type="text" name="username" id="username" value="{{ $dosen->user->name }}">
+                    <input type="text" name="email" id="email" value="{{ $dosen->user->email }}">
+                    <button type="submit">Simpan</button>
                 </form>
             </div>
         </div>

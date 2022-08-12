@@ -22,12 +22,12 @@ class DosenController extends Controller
         if ($request->ajax()) {
             $data = Dosen::select('id', 'name', 'nip')->get();
             return DataTables::of($data)
-            ->addColumn('action', function ($data) {
-                return '
-                <a class="btn btn-warning" href="'.route('dosen.edit', $data->id).'"><i class="bi bi-pencil-square"></i>Edit</a>
+                ->addColumn('action', function ($data) {
+                    return '
+                <a class="btn btn-warning" href="' . route('dosen.edit', $data->id) . '"><i class="bi bi-pencil-square"></i>Edit</a>
                 <button type="buton" name="edit" id="' . $data->id . '" class="delete btn btn-danger btn-sm"> <i class="bi bi-backspace-reverse-fill"></i>Delete</button>';
-            })
-            ->make(true);
+                })
+                ->make(true);
         }
         return view('pages.admin.dosen.index');
     }
@@ -61,7 +61,7 @@ class DosenController extends Controller
         return response()->json(['success' => 'Data berhasil ditambahkan']);
     }
 
-    public function edit(Dosen $dosen, User $user, $id)
+    public function edit($id, User $user)
     {
 
         $dosen = Dosen::with('user')->find($id);
@@ -69,22 +69,13 @@ class DosenController extends Controller
         return view('pages.admin.dosen.edit', compact('dosen', 'user'));
     }
 
-    public function update(Request $request, Dosen $dosen)
+    public function update($id,Request $request)
     {
-        $rules = array(
-            'username' => 'required',
-            'name' => 'required',
-            'nip' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        );
-
-        $error = Validator::make($request->all(), $rules);
-
-        if ($error->fails()) {
-            return response()->json(['errors' => $error->errors()->all()]);
-        }
-
+        $dosen = Dosen::find($id);
+        $dosen->name = $request->name;
+        $dosen->nip = $request->nip;
+        $dosen->save();
+        return "Meueheehehe";
     }
 
     /**

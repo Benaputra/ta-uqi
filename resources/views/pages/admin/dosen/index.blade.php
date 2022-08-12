@@ -25,7 +25,6 @@
                             <th>ID</th>
                             <th>Nama</th>
                             <th>NIP</th>
-                            <th>Email</th>
                             <th width="180px">Action</th>
                         </tr>
                     </thead>
@@ -45,6 +44,10 @@
                     <div class="modal-body">
                         <span id="form_result"></span>
                         <div class="form-group">
+                            <label>Username : </label>
+                            <input type="text" name="username" placeholder="Username" id="username" class="form-control" />
+                        </div>
+                        <div class="form-group">
                             <label>Nama Dosen : </label>
                             <input type="text" name="name" placeholder="Nama Dosen" id="name" class="form-control" />
                         </div>
@@ -56,7 +59,7 @@
                             <label>Email Dosen : </label>
                             <input type="email" name="email" placeholder="Email" id="email" class="form-control" />
                         </div>
-                        <div class="form-group editpass">
+                        <div class="form-group">
                             <label>Password : </label>
                             <input type="password" name="password" placeholder="Password" id="password" class="form-control" />
                         </div>
@@ -103,7 +106,6 @@
                 {data : 'id', name: 'id'},
                 {data : 'name', name: 'name'},
                 {data : 'nip', name: 'nip'},
-                {data : 'email', name: 'email'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
@@ -177,9 +179,11 @@
                 success:function(data)
                 {
                     console.log('success: '+data);
+                    $('#username').val(data.result.username);
                     $('#name').val(data.result.name);
                     $('#nip').val(data.result.nip);
                     $('#email').val(data.result.email);
+                    $('#password').val(data.result.password);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');
                     $('#action_button').val('Update');

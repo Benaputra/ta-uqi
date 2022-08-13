@@ -12,6 +12,7 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\KelasKuliahController;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    Alert::success('Selamat Datang', auth()->user()->name);
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 

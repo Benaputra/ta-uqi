@@ -1,9 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
     @include('include.meta')
+
 
     <title>Semangat - Syauqi</title>
 
@@ -35,7 +38,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             @yield('header-table')
-                            {{-- Contoh Penggunaan Header Table 
+                            {{-- Contoh Penggunaan Header Table
                             <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6> --}}
                         </div>
                         <div class="card-body">
@@ -83,7 +86,9 @@
     </div>
 
     @include('include.js')
+
     @stack('add_js')
+
 
 </body>
 

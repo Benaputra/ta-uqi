@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DosenController extends Controller
 {
@@ -86,12 +87,14 @@ class DosenController extends Controller
         // ]);
         $dosen = Dosen::find($request->id);
         $dosen->name = $request->name;
-        $dosen->name = $request->nip;
+        $dosen->nip = $request->nip;
         $dosen->user->name = $request->username;
         $dosen->user->email = $request->email;
         $dosen->push();
         // return $dosen->toJson();
-        return "Meueheehehe";
+        Alert::success('Success', 'Data Berhasil diubah');
+        return redirect()->route('dosen.index');
+        // return "Meueheehehe";
     }
 
     /**

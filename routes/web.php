@@ -30,7 +30,6 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    Alert::success('Selamat Datang', auth()->user()->name);
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 

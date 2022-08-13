@@ -11,12 +11,34 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('header-table')
-    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#tambahDosen">Tambah Data</button>
+    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end" data-bs-toggle="modal"
+        data-bs-target="#tambahDosen">Tambah Data</button>
     <h6 class="m-0 font-weight-bold text-primary">Dosen Tabel</h6>
 @endsection
 
 @section('content')
     <div class="container">
+        {{-- <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <th scope="col" class="py-3 px-6">ID</th>
+                    <th scope="col" class="py-3 px-6">Nama</th>
+                    <th scope="col" class="py-3 px-6">NIP</th>
+                    <th width="180px" scope="col" class="py-3 px-6">Action</th>
+                </thead>
+                <tbody>
+                    @foreach ($dosens as $dosen)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="py-4 px-6">{{ $loop->iteration }}</td>
+                            <td class="py-4 px-6">{{ $dosen->name }}</td>
+                            <td class="py-4 px-6">{{ $dosen->nip }}</td>
+                            <td class="py-4 px-6"><a class="btn btn-warning" href="{{ route('dosen.edit', ['id' => $dosen->id]) }}"><i
+                                        class="bi bi-pencil-square"></i>Edit</a></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div> --}}
         <div class="row">
             <div class="col-12 table-responsive">
                 <table class="table table-striped table-bordered dosen_datatable">
@@ -29,13 +51,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dosens as $dosen )
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $dosen->name }}</td>
-                            <td>{{ $dosen->nip }}</td>
-                            <td><a class="btn btn-warning" href="{{ route('dosen.edit',['id'=> $dosen->id]) }}"><i class="bi bi-pencil-square"></i>Edit</a></td>
-                        </tr>
+                        @foreach ($dosens as $dosen)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $dosen->name }}</td>
+                                <td>{{ $dosen->nip }}</td>
+                                <td><a class="btn btn-warning" href="{{ route('dosen.edit', ['id' => $dosen->id]) }}"><i
+                                            class="bi bi-pencil-square"></i>Edit</a></td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -44,71 +67,74 @@
 
         <div class="modal fade" id="tambahDosen" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" id="sample_form" class="form-horizontal" action="{{ route('dosen.store') }}">
-                    @csrf
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLabel">Form Tambah Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <span id="form_result"></span>
-                        <div class="form-group">
-                            <label>Username : </label>
-                            <input type="text" name="username" placeholder="Username" id="username" class="form-control" />
+                <div class="modal-content">
+                    <form method="post" id="sample_form" class="form-horizontal" action="{{ route('dosen.store') }}">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Form Tambah Data</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="form-group">
-                            <label>Nama Dosen : </label>
-                            <input type="text" name="name" placeholder="Nama Dosen" id="name" class="form-control" />
+                        <div class="modal-body">
+                            <span id="form_result"></span>
+                            <div class="form-group">
+                                <label>Username : </label>
+                                <input type="text" name="username" placeholder="Username" id="username"
+                                    class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Dosen : </label>
+                                <input type="text" name="name" placeholder="Nama Dosen" id="name"
+                                    class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>NIP Dosen : </label>
+                                <input type="text" name="nip" placeholder="Nomor Induk Pegawai" id="nip"
+                                    class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email Dosen : </label>
+                                <input type="email" name="email" placeholder="Email" id="email"
+                                    class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password : </label>
+                                <input type="password" name="password" placeholder="Password" id="password"
+                                    class="form-control" />
+                            </div>
+                            <input type="hidden" name="action" id="action" value="Add" />
+                            <input type="hidden" name="hidden_id" id="hidden_id" />
                         </div>
-                        <div class="form-group">
-                            <label>NIP Dosen : </label>
-                            <input type="text" name="nip" placeholder="Nomor Induk Pegawai" id="nip" class="form-control" />
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" name="action_button" id="action_button" value="Add"
+                                class="btn btn-info" />
                         </div>
-                        <div class="form-group">
-                            <label>Email Dosen : </label>
-                            <input type="email" name="email" placeholder="Email" id="email" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Password : </label>
-                            <input type="password" name="password" placeholder="Password" id="password" class="form-control" />
-                        </div>
-                        <input type="hidden" name="action" id="action" value="Add" />
-                        <input type="hidden" name="hidden_id" id="hidden_id" />
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" name="action_button" id="action_button" value="Add" class="btn btn-info" />
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
             </div>
         </div>
 
         <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" id="sample_form" class="form-horizontal">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLabel">Konfirmasi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h4 align="center" style="margin: 0;">Apakah anda yakin ingin menghapus data ini?</h4>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">Yes</button>
-                    </div>
-                </form>
-            </div>
+                <div class="modal-content">
+                    <form method="post" id="sample_form" class="form-horizontal">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Konfirmasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 align="center" style="margin: 0;">Apakah anda yakin ingin menghapus data ini?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">Yes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-
-    </script>
+    <script></script>
 @endsection
-
-

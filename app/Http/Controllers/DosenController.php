@@ -7,9 +7,10 @@ use App\Models\Dosen;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
-use RealRashid\SweetAlert\Facades\Alert;
+
 
 class DosenController extends Controller
 {
@@ -76,15 +77,6 @@ class DosenController extends Controller
 
     public function update($id, Request $request)
     {
-        // $dosen = Dosen::where('id', $id)->with('user')->update([
-        //     'name' => $request->name,
-        //     'nip' => $request->nip,
-        //     'email' => $request->user->email,
-        // ]);
-        // $userDosen = User::where('user_id', $id)->update([
-        //     'name' => $request->username,
-        //     'email' => $request->email,
-        // ]);
         $dosen = Dosen::find($request->id);
         $dosen->name = $request->name;
         $dosen->nip = $request->nip;
@@ -94,7 +86,7 @@ class DosenController extends Controller
         // return $dosen->toJson();
         Alert::success('Success', 'Data Berhasil diubah');
         return redirect()->route('dosen.index');
-        // return "Meueheehehe";
+
     }
 
     /**

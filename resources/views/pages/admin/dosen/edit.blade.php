@@ -11,8 +11,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('header-table')
-    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button>
-    <h6 class="m-0 font-weight-bold text-primary">Edit Data </h6>
+    <h6 class="m-0 font-weight-bold text-primary">Edit Data Dosen </h6>
 @endsection
 
 @section('content')

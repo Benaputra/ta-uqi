@@ -19,17 +19,20 @@ class DosenController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $data = Dosen::select('id', 'name', 'nip')->get();
-            return DataTables::of($data)
-                ->addColumn('action', function ($data) {
-                    return '
-                <a class="btn btn-warning" href="' . route('dosen.edit', $data->id) . '"><i class="bi bi-pencil-square"></i>Edit</a>
-                <button type="buton" name="edit" id="' . $data->id . '" class="delete btn btn-danger btn-sm"> <i class="bi bi-backspace-reverse-fill"></i>Delete</button>';
-                })
-                ->make(true);
-        }
-        return view('pages.admin.dosen.index');
+        // if ($request->ajax()) {
+        //     $data = Dosen::select('id', 'name', 'nip')->get();
+        //     return DataTables::of($data)
+        //         ->addColumn('action', function ($data) {
+        //             return '
+        //         <a class="btn btn-warning" href="' . route('dosen.edit', $data->id) . '"><i class="bi bi-pencil-square"></i>Edit</a>
+        //         <button type="buton" name="edit" id="' . $data->id . '" class="delete btn btn-danger btn-sm"> <i class="bi bi-backspace-reverse-fill"></i>Delete</button>';
+        //         })
+        //         ->make(true);
+        // }
+        $dosens = Dosen::with('user')->get();
+        // dd($dosens);
+        // return $dosens->toJson();
+        return view('pages.admin.dosen.index', compact('dosens'));
     }
 
     public function store(Request $request)
@@ -58,23 +61,36 @@ class DosenController extends Controller
             'name' => $request->name,
             'nip' => $request->nip,
         ]);
-        return response()->json(['success' => 'Data berhasil ditambahkan']);
+        // return response()->json(['success' => 'Data berhasil ditambahkan']);
+        return redirect()->back();
     }
 
-    public function edit($id, User $user)
+    public function edit($id)
     {
 
         $dosen = Dosen::with('user')->find($id);
         // return $dosen->toJson();
-        return view('pages.admin.dosen.edit', compact('dosen', 'user'));
+        return view('pages.admin.dosen.edit', compact('dosen'));
     }
 
-    public function update($id,Request $request)
+    public function update($id, Request $request)
     {
-        $dosen = Dosen::find($id);
+        // $dosen = Dosen::where('id', $id)->with('user')->update([
+        //     'name' => $request->name,
+        //     'nip' => $request->nip,
+        //     'email' => $request->user->email,
+        // ]);
+        // $userDosen = User::where('user_id', $id)->update([
+        //     'name' => $request->username,
+        //     'email' => $request->email,
+        // ]);
+        $dosen = Dosen::find($request->id);
         $dosen->name = $request->name;
-        $dosen->nip = $request->nip;
-        $dosen->save();
+        $dosen->name = $request->nip;
+        $dosen->user->name = $request->username;
+        $dosen->user->email = $request->email;
+        $dosen->push();
+        // return $dosen->toJson();
         return "Meueheehehe";
     }
 

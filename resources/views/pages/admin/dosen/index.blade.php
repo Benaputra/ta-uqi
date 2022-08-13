@@ -11,7 +11,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('header-table')
-    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button>
+    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#tambahDosen">Tambah Data</button>
     <h6 class="m-0 font-weight-bold text-primary">Dosen Tabel</h6>
 @endsection
 
@@ -28,15 +28,25 @@
                             <th width="180px">Action</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach ($dosens as $dosen )
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $dosen->name }}</td>
+                            <td>{{ $dosen->nip }}</td>
+                            <td><a class="btn btn-warning" href="{{ route('dosen.edit',['id'=> $dosen->id]) }}"><i class="bi bi-pencil-square"></i>Edit</a></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="tambahDosen" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" id="sample_form" class="form-horizontal">
+                <form method="post" id="sample_form" class="form-horizontal" action="{{ route('dosen.store') }}">
+                    @csrf
                     <div class="modal-header">
                     <h5 class="modal-title" id="ModalLabel">Form Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -95,133 +105,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+    </script>
 @endsection
-<script type="text/javascript">
-    $(document).ready(function() {
-        var table = $('.dosen_datatable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('dosen.index') }}",
-            columns: [
-                {data : 'id', name: 'id'},
-                {data : 'name', name: 'name'},
-                {data : 'nip', name: 'nip'},
-                {data : 'action', name: 'action', orderable: false, searchable: false},
-            ]
-        });
 
-        $('#create_record').click(function(){
-            $('.modal-title').text('Form Tambah Data');
-            $('#action_button').val('Add');
-            $('#action').val('Add');
-            $('#form_result').html('');
 
-            $('#formModal').modal('show');
-        });
-
-        $('#sample_form').on('submit', function(event){
-            event.preventDefault();
-            var action_url = '';
-
-            if($('#action').val() == 'Add')
-            {
-                action_url = "{{ route('dosen.store') }}";
-            }
-
-            if($('#action').val() == 'Edit')
-            {
-                action_url = "{{ route('dosen.update') }}";
-            }
-
-            $.ajax({
-                type: 'post',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: action_url,
-                data:$(this).serialize(),
-                dataType: 'json',
-                success: function(data) {
-                    console.log('success: '+data);
-                    var html = '';
-                    if(data.errors)
-                    {
-                        html = '<div class="alert alert-danger">';
-                        for(var count = 0; count < data.errors.length; count++)
-                        {
-                            html += '<p>' + data.errors[count] + '</p>';
-                        }
-                        html += '</div>';
-                    }
-                    if(data.success)
-                    {
-                        html = '<div class="alert alert-success">' +data.success + '</div>';
-                        location.reload(true);
-                        $('#sample_form')[0].reset();
-                        $('#dosen_table').DataTable().ajax.reload();
-                    }
-                    $('#form_result').html(html);
-                },
-                error: function(data) {
-                    var errors = data.responseJSON;
-                    console.log(errors);
-                }
-            });
-        });
-
-        $(document).on('click', '.edit', function(event){
-            event.preventDefault();
-            var id = $(this).attr('id');
-            $('#form_result').html('');
-
-            $.ajax({
-                url :"/admin/dosen/edit/"+id+"/",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                dataType:"json",
-                success:function(data)
-                {
-                    console.log('success: '+data);
-                    $('#username').val(data.result.username);
-                    $('#name').val(data.result.name);
-                    $('#nip').val(data.result.nip);
-                    $('#email').val(data.result.email);
-                    $('#password').val(data.result.password);
-                    $('#hidden_id').val(id);
-                    $('.modal-title').text('Form Edit Data');
-                    $('#action_button').val('Update');
-                    $('#action').val('Edit');
-                    $('.editpass').hide();
-                    $('#formModal').modal('show');
-                },
-                error: function(data) {
-                    var errors = data.responseJSON;
-                    console.log(errors);
-                }
-            })
-        });
-
-        var dosen_id;
-
-        $(document).on('click', '.delete', function(){
-            $('.modal-title').text('Hapus Data');
-            dosen_id = $(this).attr('id');
-            $('#confirmModal').modal('show');
-        });
-
-        $('#ok_button').click(function(){
-            $.ajax({
-                url:"/admin/dosen/destroy/"+dosen_id,
-                beforeSend:function(){
-                    $('#ok_button').text('Deleting...');
-                },
-                success:function(data)
-                {
-                    setTimeout(function(){
-                        $('#confirmModal').modal('hide');
-                        $('#dosen_table').DataTable().ajax.reload();
-                        location.reload(true);
-                        alert('Data Deleted');
-                    }, 200);
-                }
-            })
-        });
-    });
-</script>

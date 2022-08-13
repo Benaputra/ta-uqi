@@ -68,8 +68,8 @@ Route::get('/admin/mahasiswa/destroy/{id}/', [MahasiswaController::class, 'destr
 //Routing Dosen
 Route::get('/admin/dosen', [DosenController::class, 'index'])->name('dosen.index');
 Route::post('/admin/dosen', [DosenController::class, 'store'])->name('dosen.store');
-Route::get('/admin/dosen/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
-Route::put('/admin/dosen/update}', [DosenController::class, 'update'])->name('dosen.update');
+Route::get('/admin/dosen/{$dosen}/edit', [DosenController::class, 'edit'])->name('dosen.edit');
+Route::put('/admin/dosen/update/{dosen}', [DosenController::class, 'update'])->name('dosen.update');
 Route::get('/admin/dosen/destroy/{id}/', [DosenController::class, 'destroy'])->name('dosen.destroy');
 
 //Routing Kelas

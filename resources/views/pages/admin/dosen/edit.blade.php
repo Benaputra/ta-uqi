@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-12 table-responsive">
                 <h1>HEHEHEHEHHEHE</h1>
-                <form action="{{ route('dosen.update', $dosen->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dosen.update', $dosen) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="text" name="name" id="name" value="{{ $dosen->name }}">

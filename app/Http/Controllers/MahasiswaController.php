@@ -21,13 +21,16 @@ class MahasiswaController extends Controller
         $kelas = Kelas::all();
 
         if ($request->ajax()) {
-            $data = Mahasiswa::select('id', 'nim', 'name', 'kelas_id', 'prodi_id', 'email')->get();
+            $data = Mahasiswa::select('id','user_id','nim', 'name', 'kelas_id', 'prodi_id')->get();
             return DataTables::of($data)
             ->editColumn('kelas_id', function ($data) {
                 return $data->kelas->name;
             })
             ->editColumn('prodi_id', function ($data) {
                 return $data->prodi->name;
+            })
+            ->editColumn('email', function ($data) {
+                return $data->user->email;
             })
             ->addColumn('action', function ($data) {
                 return '

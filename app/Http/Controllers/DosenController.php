@@ -75,7 +75,7 @@ class DosenController extends Controller
         return view('pages.admin.dosen.edit', compact('dosen'));
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
         $dosen = Dosen::find($request->id);
         $dosen->name = $request->name;
@@ -95,9 +95,12 @@ class DosenController extends Controller
      * @param  \App\Models\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dosen $dosen, $id)
+    public function destroy($id)
     {
         $data = Dosen::findOrFail($id);
-        $data->delete();
+        $data->user()->delete();
+        // return $data->toJson();
+        Alert::success('Pesan', 'Data berhasil dihapus');
+        return redirect()->route('dosen.index');
     }
 }

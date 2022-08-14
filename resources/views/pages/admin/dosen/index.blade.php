@@ -17,31 +17,10 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        {{-- <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <th scope="col" class="py-3 px-6">ID</th>
-                    <th scope="col" class="py-3 px-6">Nama</th>
-                    <th scope="col" class="py-3 px-6">NIP</th>
-                    <th width="180px" scope="col" class="py-3 px-6">Action</th>
-                </thead>
-                <tbody>
-                    @foreach ($dosens as $dosen)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="py-4 px-6">{{ $loop->iteration }}</td>
-                            <td class="py-4 px-6">{{ $dosen->name }}</td>
-                            <td class="py-4 px-6">{{ $dosen->nip }}</td>
-                            <td class="py-4 px-6"><a class="btn btn-warning" href="{{ route('dosen.edit', ['id' => $dosen->id]) }}"><i
-                                        class="bi bi-pencil-square"></i>Edit</a></td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div> --}}
+    <div class="">
         <div class="row">
-            <div class="col-12 table-responsive">
-                <table class="table table-striped table-bordered dosen_datatable">
+            <div class="col-12 table-responsive bdr">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -56,8 +35,42 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $dosen->name }}</td>
                                 <td>{{ $dosen->nip }}</td>
-                                <td><a class="btn btn-warning" href="{{ route('dosen.edit', ['id' => $dosen->id]) }}"><i
-                                            class="bi bi-pencil-square"></i>Edit</a></td>
+                                <td><a class="btn btn-warning btn-sm"
+                                        href="{{ route('dosen.edit', ['id' => $dosen->id]) }}"><i
+                                            class="bi bi-pencil-square"></i>Edit</a>
+                                    <form action="{{ route('dosen.destroy', ['id' => $dosen->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                            <i class="bi bi-trash"></i>
+                                            Hapus
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Hapus Data Dosen</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Apakah anda yakin ingin menghapus data ini?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </td>
+                                </form>
                             </tr>
                         @endforeach
                     </tbody>

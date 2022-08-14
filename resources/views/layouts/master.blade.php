@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +10,12 @@
 
     @include('include.css')
     @stack('add_css')
+    <style>
+        .bdr {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+    </style>
 
 </head>
 

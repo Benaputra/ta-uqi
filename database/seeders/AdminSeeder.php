@@ -33,6 +33,7 @@ class AdminSeeder extends Seeder
         $mahasiswa->assignRole('mahasiswa');
 
         $createMahasiswa = Mahasiswa::create([
+            'name'  => 'Benaputra Putra',
             'nim'  => '1234567890',
             'user_id' => $mahasiswa->id,
             'prodi_id' => 1,

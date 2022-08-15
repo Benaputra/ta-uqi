@@ -5,7 +5,7 @@
 
     @include('include.meta')
 
-    <title>Semangat - Syauqi</title>
+    <title>Presensi Teknik Elektro</title>
 
     @include('include.css')
     @stack('add_css')

@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('absens', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('mahasiswa_id')->nullable();
+            $table->unsignedBigInteger('jadwal_id')->nullable();
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('jadwal_id')->references('id')->on('jadwals')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -29,8 +29,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/adminku', function () {
-    return view('auth.login');
+Route::get('/adminkunya', function () {
+    return "hheheeh";
 });
 
 Route::get('/dashboard', function () {

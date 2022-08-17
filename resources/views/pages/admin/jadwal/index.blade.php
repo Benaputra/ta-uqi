@@ -40,149 +40,202 @@
         </div>
 
         <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" id="sample_form" class="form-horizontal">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLabel">Form Tambah Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <span id="form_result"></span>
-                        <div class="form-group">
-                            <label>Hari : </label>
-                            <input type="text" name="hari" placeholder="Hari" id="hari" class="form-control" />
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form method="post" id="sample_form" class="form-horizontal">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Tambah Data Jadwal</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="form-group">
-                            <label>Jam : </label>
-                            <input type="text" name="jam" placeholder="Jam" id="jam" class="form-control" />
+                        <div class="modal-body">
+                            <div class="row">
+                                <span id="form_result"></span>
+                                <div class="form-group">
+                                    <label>Hari : </label>
+                                    <select name="hari" id="hari" class="form-control">
+                                        <option value="">Silahkan pilih hari</option>
+                                        <option value="Senin">Senin</option>
+                                        <option value="Selasa">Selasa</option>
+                                        <option value="Rabu">Rabu</option>
+                                        <option value="Kamis">Kamis</option>
+                                        <option value="Jum'at">Jum'at</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Matakuliah : </label>
+                                    <select class="form-select" name="matakuliah_id" id="matakuliah_id">
+                                        <option value="">Silahkan pilih matakuliah</option>
+                                        @foreach ($matakuliah as $item)
+                                            @if (old('matakuliah_id') == $item->id)
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Semester : </label>
+                                    <select class="form-select" name="semester_id" id="semester_id">
+                                        <option value="">Silahkan pilih semester</option>
+                                        @foreach ($semester as $item)
+                                            @if (old('semester_id') == $item->id)
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Kelas : </label>
+                                    <select class="form-select" name="kelas_id" id="kelas_id">
+                                        <option value="">Silahkan pilih kelas</option>
+                                        @foreach ($kelas as $item)
+                                            @if (old('kelas_id') == $item->id)
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-3">
+                                    <label>Jam Mulai : </label>
+                                    <input type="text" name="jam_mulai" id="jam_mulai" class="form-control">
+                                </div>
+                                <div class="form-group col-3">
+                                    <label>Jam Selesai : </label>
+                                    <input type="time" name="jam_selesai" id="jam_selesai" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Dosen : </label>
+                                    <select class="form-select" name="dosen_id" id="dosen_id">
+                                        <option value="">Silahkan pilih dosen</option>
+                                        @foreach ($dosen as $item)
+                                            @if (old('dosen_id') == $item->id)
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ruangan : </label>
+                                    <select class="form-select" name="ruangan_id" id="ruangan_id">
+                                        <option value="">Silahkan pilih prodi</option>
+                                        @foreach ($ruangan as $item)
+                                            @if (old('ruangan_id') == $item->id)
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prodi : </label>
+                                    <select class="form-select" name="prodi_id" id="prodi_id">
+                                        <option value="">Silahkan pilih prodi</option>
+                                        @foreach ($prodi as $item)
+                                            @if (old('prodi_id') == $item->id)
+                                            @else
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <input type="hidden" name="action" id="action" value="Add" />
+                                <input type="hidden" name="hidden_id" id="hidden_id" />
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Matakuliah : </label>
-                            <select class="form-select" name="matakuliah_id" id="matakuliah_id">
-                                <option value="">Silahkan pilih matakuliah</option>
-                                @foreach ($matakuliah as $item)
-                                    @if (old('matakuliah_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" name="action_button" id="action_button" value="Add"
+                                class="btn btn-info" />
                         </div>
-                        <div class="form-group">
-                            <label>Semester : </label>
-                            <select class="form-select" name="semester_id" id="semester_id">
-                                <option value="">Silahkan pilih semester</option>
-                                @foreach ($semester as $item)
-                                    @if (old('semester_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Kelas : </label>
-                            <select class="form-select" name="kelas_id" id="kelas_id">
-                                <option value="">Silahkan pilih kelas</option>
-                                @foreach ($kelas as $item)
-                                    @if (old('kelas_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Dosen : </label>
-                            <select class="form-select" name="dosen_id" id="dosen_id">
-                                <option value="">Silahkan pilih dosen</option>
-                                @foreach ($dosen as $item)
-                                    @if (old('dosen_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Ruangan : </label>
-                            <select class="form-select" name="ruangan_id" id="ruangan_id">
-                                <option value="">Silahkan pilih prodi</option>
-                                @foreach ($ruangan as $item)
-                                    @if (old('ruangan_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Prodi : </label>
-                            <select class="form-select" name="prodi_id" id="prodi_id">
-                                <option value="">Silahkan pilih prodi</option>
-                                @foreach ($prodi as $item)
-                                    @if (old('prodi_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <input type="hidden" name="action" id="action" value="Add" />
-                        <input type="hidden" name="hidden_id" id="hidden_id" />
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" name="action_button" id="action_button" value="Add" class="btn btn-info" />
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
             </div>
         </div>
 
         <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" id="sample_form" class="form-horizontal">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLabel">Konfirmasi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h4 align="center" style="margin: 0;">Apakah anda yakin ingin menghapus data ini?</h4>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">Yes</button>
-                    </div>
-                </form>
-            </div>
+                <div class="modal-content">
+                    <form method="post" id="sample_form" class="form-horizontal">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Konfirmasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 align="center" style="margin: 0;">Apakah anda yakin ingin menghapus data ini?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">Yes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 @endsection
+<script>
+    $(function(){
+        $('#jam_mulai').datetimepicker(){
+            format: 'HH:mm'
+        }
+    })
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         var table = $('.jadwal_datatable').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('jadwal.index') }}",
-            columns: [
-                {data : 'id', name: 'id'},
-                {data : 'hari', name: 'hari'},
-                {data : 'jam', name: 'jam'},
-                {data : 'matakuliah_id', name: 'matakuliah_id'},
-                {data : 'semester_id', name: 'semester_id'},
-                {data : 'kelas_id', name: 'kelas_id'},
-                {data : 'dosen_id', name: 'dosen_id'},
-                {data : 'ruangan_id', name: 'ruangan_id'},
-                {data : 'prodi_id', name: 'prodi_id'},
-                {data : 'action', name: 'action', orderable: false, searchable: false},
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'hari',
+                    name: 'hari'
+                },
+                {
+                    data: 'jam',
+                    name: 'jam'
+                },
+                {
+                    data: 'matakuliah_id',
+                    name: 'matakuliah_id'
+                },
+                {
+                    data: 'semester_id',
+                    name: 'semester_id'
+                },
+                {
+                    data: 'kelas_id',
+                    name: 'kelas_id'
+                },
+                {
+                    data: 'dosen_id',
+                    name: 'dosen_id'
+                },
+                {
+                    data: 'ruangan_id',
+                    name: 'ruangan_id'
+                },
+                {
+                    data: 'prodi_id',
+                    name: 'prodi_id'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
             ]
         });
 
-        $('#create_record').click(function(){
+        $('#create_record').click(function() {
             $('.modal-title').text('Form Tambah Data');
             $('#action_button').val('Add');
             $('#action').val('Add');
@@ -191,41 +244,39 @@
             $('#formModal').modal('show');
         });
 
-        $('#sample_form').on('submit', function(event){
+        $('#sample_form').on('submit', function(event) {
             event.preventDefault();
             var action_url = '';
 
-            if($('#action').val() == 'Add')
-            {
+            if ($('#action').val() == 'Add') {
                 action_url = "{{ route('jadwal.store') }}";
             }
 
-            if($('#action').val() == 'Edit')
-            {
+            if ($('#action').val() == 'Edit') {
                 action_url = "{{ route('jadwal.update') }}";
             }
 
             $.ajax({
                 type: 'post',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 url: action_url,
-                data:$(this).serialize(),
+                data: $(this).serialize(),
                 dataType: 'json',
                 success: function(data) {
-                    console.log('success: '+data);
+                    console.log('success: ' + data);
                     var html = '';
-                    if(data.errors)
-                    {
+                    if (data.errors) {
                         html = '<div class="alert alert-danger">';
-                        for(var count = 0; count < data.errors.length; count++)
-                        {
+                        for (var count = 0; count < data.errors.length; count++) {
                             html += '<p>' + data.errors[count] + '</p>';
                         }
                         html += '</div>';
                     }
-                    if(data.success)
-                    {
-                        html = '<div class="alert alert-success">' +data.success + '</div>';
+                    if (data.success) {
+                        html = '<div class="alert alert-success">' + data.success +
+                        '</div>';
                         location.reload(true);
                         $('#sample_form')[0].reset();
                         $('#jadwal_table').DataTable().ajax.reload();
@@ -239,18 +290,19 @@
             });
         });
 
-        $(document).on('click', '.edit', function(event){
+        $(document).on('click', '.edit', function(event) {
             event.preventDefault();
             var id = $(this).attr('id');
             $('#form_result').html('');
 
             $.ajax({
-                url :"/admin/jadwal/edit/"+id+"/",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                dataType:"json",
-                success:function(data)
-                {
-                    console.log('success: '+data);
+                url: "/admin/jadwal/edit/" + id + "/",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: "json",
+                success: function(data) {
+                    console.log('success: ' + data);
                     $('#hari').val(data.result.hari);
                     $('#jam').val(data.result.jam);
                     $('#matakuliah_id').val(data.result.matakuliah_id);
@@ -276,21 +328,20 @@
 
         var jadwal_id;
 
-        $(document).on('click', '.delete', function(){
+        $(document).on('click', '.delete', function() {
             $('.modal-title').text('Hapus Data');
             jadwal_id = $(this).attr('id');
             $('#confirmModal').modal('show');
         });
 
-        $('#ok_button').click(function(){
+        $('#ok_button').click(function() {
             $.ajax({
-                url:"/admin/jadwal/destroy/"+jadwal_id,
-                beforeSend:function(){
+                url: "/admin/jadwal/destroy/" + jadwal_id,
+                beforeSend: function() {
                     $('#ok_button').text('Deleting...');
                 },
-                success:function(data)
-                {
-                    setTimeout(function(){
+                success: function(data) {
+                    setTimeout(function() {
                         $('#confirmModal').modal('hide');
                         $('#jadwal_table').DataTable().ajax.reload();
                         location.reload(true);

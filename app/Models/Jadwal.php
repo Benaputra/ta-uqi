@@ -10,6 +10,16 @@ class Jadwal extends Model
     use HasFactory;
 
     protected $guarded = [];
+    // protected $fillable = [
+    //     'hari',
+    //     'jam',
+    //     'matakuliah_id',
+    //     'semester_id',
+    //     'kelas_id',
+    //     'dosen_id',
+    //     'ruangan_id',
+    //     'prodi_id',
+    // ];
 
     public function matakuliah()
     {

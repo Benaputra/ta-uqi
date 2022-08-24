@@ -24,7 +24,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Hari</th>
-                            <th>Jam</th>
+                            <th>Jam Mulai</th>
+                            <th>Jam Akhir</th>
                             <th>Matakuliah</th>
                             <th>Semester</th>
                             <th>Kelas</th>
@@ -99,7 +100,7 @@
                                 </div>
                                 <div class="form-group col-3">
                                     <label>Jam Mulai : </label>
-                                    <input type="text" name="jam_mulai" id="jam_mulai" class="form-control">
+                                    <input type="time" name="jam_mulai" id="jam_mulai" class="form-control">
                                 </div>
                                 <div class="form-group col-3">
                                     <label>Jam Selesai : </label>
@@ -177,13 +178,6 @@
         </div>
     </div>
 @endsection
-<script>
-    $(function(){
-        $('#jam_mulai').datetimepicker(){
-            format: 'HH:mm'
-        }
-    })
-</script>
 <script type="text/javascript">
     $(document).ready(function() {
         var table = $('.jadwal_datatable').DataTable({
@@ -199,8 +193,12 @@
                     name: 'hari'
                 },
                 {
-                    data: 'jam',
-                    name: 'jam'
+                    data: 'jam_mulai',
+                    name: 'jam_mulai'
+                },
+                {
+                    data: 'jam_selesai',
+                    name: 'jam_selesai'
                 },
                 {
                     data: 'matakuliah_id',

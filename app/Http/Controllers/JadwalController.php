@@ -32,7 +32,7 @@ class JadwalController extends Controller
         $prodi = Prodi::all();
 
         if ($request->ajax()) {
-            $data = Jadwal::select(['id', 'hari', 'jam','matakuliah_id', 'semester_id','kelas_id','dosen_id','ruangan_id','prodi_id'])->get();
+            $data = Jadwal::select(['id', 'hari', 'jam_mulai','jam_selesai','matakuliah_id', 'semester_id','kelas_id','dosen_id','ruangan_id','prodi_id'])->get();
             return DataTables::of($data)
 
             ->editColumn('matakuliah_id', function ($data) {
@@ -84,7 +84,6 @@ class JadwalController extends Controller
     {
         $rules = array(
             'hari' => 'required',
-            'jam' => 'required',
             'matakuliah_id' => 'required',
             'semester_id' => 'required',
             'kelas_id' => 'required',
@@ -101,7 +100,8 @@ class JadwalController extends Controller
 
         $form_data = array(
             'hari' => $request->hari,
-            'jam' => $request->jam,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
             'matakuliah_id' => $request->matakuliah_id,
             'semester_id' => $request->semester_id,
             'kelas_id' => $request->kelas_id,

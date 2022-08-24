@@ -49,4 +49,9 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Kelas::class,'kelas_id','id');
     }
+
+    public function kelaskuliah()
+    {
+        return $this->belongsTo(KelasKuliah::class);
+    }
 }

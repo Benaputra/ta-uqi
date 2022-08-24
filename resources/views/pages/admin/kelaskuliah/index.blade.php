@@ -23,11 +23,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tahun Ajaran</th>
-                            <th>Prodi</th>
                             <th>NIM Mahasiswa</th>
-                            <th>Kode Matakuliah</th>
-                            <th>Kelas Mahasiswa</th>
+                            <th>Jadwal ID</th>
                             <th width="180px">Action</th>
                         </tr>
                     </thead>
@@ -51,18 +48,6 @@
                             <input type="text" name="tahun_ajaran" placeholder="Nomor Induk Mahasiswa" id="tahun_ajaran" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <label>Prodi : </label>
-                            <select class="form-select" name="prodi_id" id="prodi_id">
-                                <option value="">Silahkan pilih prodi</option>
-                                @foreach ($prodi as $item)
-                                    @if (old('prodi_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label>NIM Mahasiswa : </label>
                             <select class="form-select" name="mahasiswa_id" id="mahasiswa_id">
                                 <option value="">Silahkan pilih NIM Mahasiswa</option>
@@ -75,25 +60,13 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Kode Mata Kuliah : </label>
-                            <select class="form-select" name="matakuliah_id" id="matakuliah_id">
+                            <label>Jadwal : </label>
+                            <select class="form-select" name="jadwal_id" id="jadwal_id">
                                 <option value="">Silahkan pilih matakuliah</option>
-                                @foreach ($matakuliah as $item)
-                                    @if (old('matakuliah_id') == $item->id)
+                                @foreach ($jadwal as $item)
+                                    @if (old('jadwal_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->kode }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Kelas : </label>
-                            <select class="form-select" name="kelas_id" id="kelas_id">
-                                <option value="">Silahkan pilih kelas</option>
-                                @foreach ($kelas as $item)
-                                    @if (old('kelas_id') == $item->id)
-                                    @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->hari }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -139,11 +112,8 @@
             ajax: "{{ route('kelaskuliah.index') }}",
             columns: [
                 {data : 'id', name: 'id'},
-                {data : 'tahun_ajaran', name: 'tahun_ajaran'},
-                {data : 'prodi_id', name: 'prodi_id'},
                 {data : 'mahasiswa_id', name: 'mahasiswa_id'},
-                {data : 'matakuliah_id', name: 'matakuliah_id'},
-                {data : 'kelas_id', name: 'kelas_id'},
+                {data : 'jadwal_id', name: 'jadwal_id'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
             ]
         });

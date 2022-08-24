@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\Kelas;
 use App\Models\Prodi;
 use App\Models\Mahasiswa;
@@ -22,30 +23,24 @@ class KelasKuliahController extends Controller
      */
     public function index(Request $request)
     {
-        $prodi = Prodi::all();
         $mahasiswa = Mahasiswa::all();
-        $matakuliah = Matakuliah::all();
-        $kelas = Kelas::all();
+        $jadwal = Jadwal::all(); 
 
         // $query = KelasKuliah::select(['tahun_ajaran','prodi_id', 'matakuliah_id', 'kelas_id', 'mahasiswa_id'])->get();
         // // dd($query);
         // return response()->json($query);
 
         if ($request->ajax()) {
-            $data = KelasKuliah::select(['id','tahun_ajaran','prodi_id', 'matakuliah_id', 'kelas_id', 'mahasiswa_id'])->get();
+            $data = KelasKuliah::select(['id', 'mahasiswa_id','jadwal_id'])->first();
             return DataTables::of($data)
 
-                ->editColumn('prodi_id', function ($data) {
-                    return $data->prodi->name;
-                })
                 ->editColumn('mahasiswa_id', function ($data) {
-                    return $data->mahasiswa->first()->nim;
+                    // return $data->mahasiswa;
+                    return "hehe";
                 })
-                ->editColumn('matakuliah_id', function ($data) {
-                    return $data->matakuliah->first()->kode;
-                })
-                ->editColumn('kelas_id', function ($data) {
-                    return $data->kelas->name;
+                ->editColumn('jadwal_id', function ($data) {
+                    // return $data->jadwal;
+                    return "hehe";
                 })
                 ->addColumn('action', function ($data) {
                     return '
@@ -54,7 +49,7 @@ class KelasKuliahController extends Controller
                 })
                 ->make(true);
         }
-        return view('pages.admin.kelaskuliah.index', compact('prodi', 'kelas', 'mahasiswa', 'matakuliah'));
+        return view('pages.admin.kelaskuliah.index', compact('mahasiswa', 'jadwal'));
     }
 
     /**

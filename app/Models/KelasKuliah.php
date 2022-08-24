@@ -11,23 +11,13 @@ class KelasKuliah extends Model
 
     protected $guarded = [];
 
-    public function prodi()
-    {
-        return $this->belongsTo(Prodi::class,'prodi_id','id');
-    }
-
     public function mahasiswa()
     {
         return $this->hasMany(Mahasiswa::class,'id','mahasiswa_id');
     }
 
-    public function matakuliah()
+    public function jadwal()
     {
-        return $this->hasMany(Matakuliah::class,'id','matakuliah_id');
-    }
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class,'kelas_id','id');
+        return $this->hasMany(Jadwal::class,'id','jadwal_id');
     }
 }

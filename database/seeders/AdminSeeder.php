@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dosen;
 use App\Models\User;
 use App\Models\Mahasiswa;
 use Illuminate\Database\Seeder;
@@ -31,6 +32,14 @@ class AdminSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
         $mahasiswa->assignRole('mahasiswa');
+        
+        $dosen = User::create([
+            'name' => 'dosen',
+            'email' => 'dosen@mail.com',
+            'password' => bcrypt('dosen'),
+            'email_verified_at' => now(),
+        ]);
+        $dosen->assignRole('dosen');
 
         $createMahasiswa = Mahasiswa::create([
             'name'  => 'Benaputra Putra',
@@ -38,6 +47,12 @@ class AdminSeeder extends Seeder
             'user_id' => $mahasiswa->id,
             'prodi_id' => 1,
             'kelas_id' => 1,
+        ]);
+
+        $createDosen = Dosen::create([
+            'name'  => 'Benaputra Dosen',
+            'nip'  => '0987654321',
+            'user_id' => $dosen->id,
         ]);
     }
 }

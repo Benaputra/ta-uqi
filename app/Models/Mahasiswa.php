@@ -41,6 +41,6 @@ class Mahasiswa extends Model
 
     public function kelaskuliah()
     {
-        return $this->belongsTo(Kelaskuliah::class,'kelas_id','id');
+        return $this->belongsTo(Kelaskuliah::class);
     }
 }

@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+    <h1>{{ $kelasMhs->mahasiswa }}</h1>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg">

@@ -12,6 +12,8 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\KelasKuliahController;
+use App\Models\KelasKuliah;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 /*
@@ -33,8 +35,16 @@ Route::get('/adminkunya', function () {
     return "hheheeh";
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/dashboard', function (KelasKuliah $kelasMhs) {
+    // $kelasMhs = KelasKuliah::where('mahasiswa_id', '=', auth()->user()->id);
+    $kelasMhs = KelasKuliah::with('mahasiswa','jadwal')->first();
+    // ->where('mahasiswa_id', '=', 'id')
+    // ->where('user_id', '=', 'mahasiswa_id');
+
+    // dd($kelasMhs);
+    return $kelasMhs->toJson();
+
+    return view('dashboard', compact('kelasMhs'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth','role:admin'])->prefix('admin')->group(function(){

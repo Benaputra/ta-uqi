@@ -24,19 +24,19 @@ class KelasKuliahController extends Controller
     public function index(Request $request)
     {
         $mahasiswa = Mahasiswa::all();
-        $jadwal = Jadwal::all(); 
+        $jadwal = Jadwal::all();
 
         // $query = KelasKuliah::select(['tahun_ajaran','prodi_id', 'matakuliah_id', 'kelas_id', 'mahasiswa_id'])->get();
         // // dd($query);
         // return response()->json($query);
 
         if ($request->ajax()) {
-            $data = KelasKuliah::select(['id', 'mahasiswa_id','jadwal_id'])->first();
+            $data = KelasKuliah::with(['mahasiswa','jadwal'])->get();
             return DataTables::of($data)
 
                 ->editColumn('mahasiswa_id', function ($data) {
-                    // return $data->mahasiswa;
-                    return "hehe";
+                    return $data->mahasiswa->first()->name;
+                    // return "hehe";
                 })
                 ->editColumn('jadwal_id', function ($data) {
                     // return $data->jadwal;

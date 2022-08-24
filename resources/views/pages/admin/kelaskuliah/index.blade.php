@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>NIM Mahasiswa</th>
+                            <th>Mahasiswa ID</th>
                             <th>Jadwal ID</th>
                             <th width="180px">Action</th>
                         </tr>

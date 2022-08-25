@@ -52,4 +52,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Dosen::class);
     }
+
+    public function kelasKuliah()
+    {
+        return $this->hasManyThrough(
+            KelasKuliah::class,
+            Mahasiswa::class,
+        );
+    }
 }

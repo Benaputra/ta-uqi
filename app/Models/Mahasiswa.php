@@ -43,4 +43,8 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo(Kelaskuliah::class);
     }
+    public function jadwalMhs()
+    {
+        return $this->hasManyThrough(KelasKuliah::class, User::class);
+    }
 }

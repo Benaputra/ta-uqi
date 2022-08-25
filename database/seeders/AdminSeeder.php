@@ -32,7 +32,15 @@ class AdminSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
         $mahasiswa->assignRole('mahasiswa');
-        
+
+        $mahasiswi = User::create([
+            'name' => 'Mahasiswi',
+            'email' => 'mahasiswi@mail.com',
+            'password' => bcrypt('mahasiswi'),
+            'email_verified_at' => now(),
+        ]);
+        $mahasiswi->assignRole('mahasiswa');
+
         $dosen = User::create([
             'name' => 'dosen',
             'email' => 'dosen@mail.com',
@@ -53,6 +61,14 @@ class AdminSeeder extends Seeder
             'name'  => 'Benaputra Dosen',
             'nip'  => '0987654321',
             'user_id' => $dosen->id,
+        ]);
+
+        $createMahasiswi = Mahasiswa::create([
+            'name'  => 'Putri',
+            'nim'  => '0809113',
+            'user_id' => $mahasiswi->id,
+            'prodi_id' => 1,
+            'kelas_id' => 1,
         ]);
     }
 }

@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\User;
+use App\Models\KelasKuliah;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DosenController;
@@ -12,9 +16,6 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\KelasKuliahController;
-use App\Models\KelasKuliah;
-use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +38,14 @@ Route::get('/adminkunya', function () {
 
 Route::get('/dashboard', function (KelasKuliah $kelasMhs) {
     // $kelasMhs = KelasKuliah::where('mahasiswa_id', '=', auth()->user()->id);
-    $kelasMhs = KelasKuliah::with('mahasiswa','jadwal')->first();
+    $kelasMhs = User::with('kelasKuliah')
+    ->where('id','=',auth()->user()->id)
+    ->get();
     // ->where('mahasiswa_id', '=', 'id')
     // ->where('user_id', '=', 'mahasiswa_id');
 
     // dd($kelasMhs);
-    return $kelasMhs->toJson();
+    // return $kelasMhs->toJson();
 
     return view('dashboard', compact('kelasMhs'));
 })->middleware(['auth'])->name('dashboard');

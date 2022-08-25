@@ -4,7 +4,8 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <h1>{{ $kelasMhs->mahasiswa }}</h1>
+    {{-- <h1>{{ $kelasMhs }}</h1> --}}
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -20,33 +21,21 @@
                             <th scope="col" class="py-3 px-6">
                                 Category
                             </th>
-                            <th scope="col" class="py-3 px-6">
-                                Price
-                            </th>
-                            <th scope="col" class="py-3 px-6">
-                                Action
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="">
-                            <th scope="row"
-                                class="py-4 px-6 font-medium text-gray-400 whitespace-nowrap ">
-                                Apple Watch 5
-                            </th>
-                            <td class="py-4 px-6">
-                                Red
-                            </td>
-                            <td class="py-4 px-6">
-                                Wearables
-                            </td>
-                            <td class="py-4 px-6">
-                                $999
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
+                            @foreach ($kelasMhs as $item)
+                                <td class="py-4 px-6">
+                                    {{ $item->mahasiswa->name }}
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ $item }}
+                                </td>
+                                <td class="py-4 px-6">
+                                    {{ $item->kelasKuliah }}
+                                </td>
+                            @endforeach
                         </tr>
                     </tbody>
                 </table>

@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Mahasiswa ID</th>
+                            <th>Mahasiswa</th>
                             <th>Jadwal ID</th>
                             <th width="180px">Action</th>
                         </tr>
@@ -44,17 +44,13 @@
                     <div class="modal-body">
                         <span id="form_result"></span>
                         <div class="form-group">
-                            <label>Tahun Ajaran : </label>
-                            <input type="text" name="tahun_ajaran" placeholder="Nomor Induk Mahasiswa" id="tahun_ajaran" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>NIM Mahasiswa : </label>
+                            <label>Nama Mahasiswa : </label>
                             <select class="form-select" name="mahasiswa_id" id="mahasiswa_id">
-                                <option value="">Silahkan pilih NIM Mahasiswa</option>
+                                <option value="">Silahkan pilih Nama Mahasiswa</option>
                                 @foreach ($mahasiswa as $item)
                                     @if (old('mahasiswa_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->nim }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name_mahasiswa }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -187,11 +183,8 @@
                 success:function(data)
                 {
                     console.log('success: '+data);
-                    $('#tahun_ajaran').val(data.result.tahun_ajaran);
-                    $('#prodi_id').val(data.result.prodi_id);
                     $('#mahasiswa_id').val(data.result.mahasiswa_id);
-                    $('#matakuliah_id').val(data.result.matakuliah_id);
-                    $('#kelas_id').val(data.result.kelas_id);
+                    $('#jadwal_id').val(data.result.jadwal_id);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');
                     $('#action_button').val('Update');

@@ -17,16 +17,16 @@ class KelasTableSeeder extends Seeder
     {
 
         Kelas::create([
-            'name' => 'A',
+            'name_kelas' => 'A',
         ]);
         Kelas::create([
-            'name' => 'B',
+            'name_kelas' => 'B',
         ]);
         Kelas::create([
-            'name' => 'C',
+            'name_kelas' => 'C',
         ]);
         Kelas::create([
-            'name' => 'D',
+            'name_kelas' => 'D',
         ]);
     }
 }

@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nama Mahasiswa</th>        
+                            <th>Nama Mahasiswa</th>
                             <th width="180px">Action</th>
                         </tr>
                     </thead>
@@ -49,7 +49,7 @@
                                 @foreach ($mahasiswa as $item)
                                     @if (old('mahasiswa_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name_mahasiswa }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -169,7 +169,6 @@
                 success:function(data)
                 {
                     console.log('success: '+data);
-                    $('#name').val(data.result.name);
                     $('#mahasiswa_id').val(data.result.mahasiswa_id);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');

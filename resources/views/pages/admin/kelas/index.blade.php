@@ -88,7 +88,7 @@
             ajax: "{{ route('kelas.index') }}",
             columns: [
                 {data : 'id', name: 'id'},
-                {data : 'name', name: 'name'},
+                {data : 'name_kelas', name: 'name_kelas'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
@@ -162,7 +162,7 @@
                 success:function(data)
                 {
                     console.log('success: '+data);
-                    $('#name').val(data.result.name);
+                    $('#name_kelas').val(data.result.name_kelas);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');
                     $('#action_button').val('Update');

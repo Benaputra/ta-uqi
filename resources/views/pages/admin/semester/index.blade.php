@@ -87,7 +87,7 @@
             ajax: "{{ route('semester.index') }}",
             columns: [
                 {data : 'id', name: 'id'},
-                {data : 'name', name: 'name'},
+                {data : 'name_semester', name: 'name_semester'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
@@ -161,7 +161,7 @@
                 success:function(data)
                 {
                     console.log('success: '+data);
-                    $('#name').val(data.result.name);
+                    $('#name_semester').val(data.result.name_semester);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');
                     $('#action_button').val('Update');

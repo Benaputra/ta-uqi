@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\User;
+use App\Models\Jadwal;
 use App\Models\KelasKuliah;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -37,21 +39,37 @@ Route::get('/adminkunya', function () {
 });
 
 Route::get('/dashboard', function (KelasKuliah $kelasMhs) {
-    // $kelasMhs = KelasKuliah::where('mahasiswa_id', '=', auth()->user()->id);
-    $kelasMhs = User::with('kelasKuliah')
-    ->where('id','=',auth()->user()->id)
-    ->get();
-    // ->where('mahasiswa_id', '=', 'id')
-    // ->where('user_id', '=', 'mahasiswa_id');
+    // $kelasMhs = User::with('kelasKuliah')
+    // ->where('id','=',auth()->user()->id)
+    // ->get();
+    // // dd($kelasMhs);
+    // // return $kelasMhs->toJson();
 
-    // dd($kelasMhs);
-    // return $kelasMhs->toJson();
+    $jadwal = DB::table('jadwals')
+        ->join('matakuliahs', 'matakuliah_id', '=', 'matakuliahs.id')
+        ->join('dosens', 'dosen_id', '=', 'dosens.id')
+        ->join('kelas', 'kelas_id', '=', 'kelas.id')
+        // ->join('semesters', 'semester_id', '=','semesters.id')
+        ->select(
+            'jadwals.*',
+            'matakuliahs.name_matakuliah',
+            'dosens.name_dosen',
+            'kelas.name_kelas'
+        )
+        ->get();
+    $kelasMhs = DB::table('kelas_kuliahs')
+        ->join('mahasiswas', 'mahasiswa_id' , '=', 'mahasiswas.id')
+        ->join('users', 'user_id' , '=', 'users.id')
+        // ->where('mahasiswa.user_id', '=', auth()->user()->mahasiswa_id)
+        ->select('mahasiswas.name_mahasiswa','users.id')
+        ->get();
 
-    return view('dashboard', compact('kelasMhs'));
+    return $kelasMhs->toJson();
+    return view('dashboard', compact('jadwal'));
 })->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth','role:admin'])->prefix('admin')->group(function(){
-    Route::get('/dashboard', [AdminController::class,'index'])->name('admin.dashboard');
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
 
@@ -125,4 +143,4 @@ Route::get('/admin/kelaskuliah/edit/{id}', [KelasKuliahController::class, 'edit'
 Route::post('/admin/kelaskuliah/update', [KelasKuliahController::class, 'update'])->name('kelaskuliah.update');
 Route::get('/admin/kelaskuliah/destroy/{id}/', [KelasKuliahController::class, 'destroy'])->name('kelaskuliah.destroy');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

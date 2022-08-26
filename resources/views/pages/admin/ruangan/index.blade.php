@@ -54,7 +54,7 @@
                                 @foreach ($prodi as $item)
                                     @if (old('prodi_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -100,7 +100,7 @@
             ajax: "{{ route('ruangan.index') }}",
             columns: [
                 {data : 'id', name: 'id'},
-                {data : 'name', name: 'name'},
+                {data : 'name_ruangan', name: 'name_ruangan'},
                 {data : 'prodi_id', name: 'prodi_id'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
             ]
@@ -175,7 +175,7 @@
                 success:function(data)
                 {
                     console.log('success: '+data);
-                    $('#name').val(data.result.name);
+                    $('#name_ruangan').val(data.result.name_ruangan);
                     $('#prodi_id').val(data.result.prodi_id);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');

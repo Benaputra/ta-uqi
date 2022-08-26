@@ -16,13 +16,13 @@ class ProdiTableSeeder extends Seeder
     public function run()
     {
         Prodi::create([
-            'name' => 'Teknik Informatika',
+            'name_prodi' => 'Teknik Informatika',
         ]);
         Prodi::create([
-            'name' => 'Teknik Listrik',
+            'name_prodi' => 'Teknik Listrik',
         ]);
         Prodi::create([
-            'name' => 'Teknik Elektronika',
+            'name_prodi' => 'Teknik Elektronika',
         ]);
     }
 }

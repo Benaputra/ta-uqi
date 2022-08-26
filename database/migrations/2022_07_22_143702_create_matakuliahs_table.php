@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('matakuliahs', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
-            $table->string('name');
+            $table->string('kode_matakuliah');
+            $table->string('name_matakuliah');
 
             $table->unsignedBigInteger('semester_id')->nullable();
             $table->unsignedBigInteger('prodi_id')->nullable();

@@ -25,15 +25,15 @@
                     </thead>
                     <tbody>
                         <tr class="">
-                            @foreach ($kelasMhs as $item)
+                            @foreach ($jadwal as $item)
                                 <td class="py-4 px-6">
-                                    {{ $item->mahasiswa->name }}
+                                    {{ $item->name_matakuliah }}
                                 </td>
                                 <td class="py-4 px-6">
-                                    {{ $item }}
+                                    {{ $item->name_dosen }}
                                 </td>
                                 <td class="py-4 px-6">
-                                    {{ $item->kelasKuliah }}
+                                    {{ $item->name_kelas }}
                                 </td>
                             @endforeach
                         </tr>

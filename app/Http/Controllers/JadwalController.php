@@ -36,22 +36,22 @@ class JadwalController extends Controller
             return DataTables::of($data)
 
             ->editColumn('matakuliah_id', function ($data) {
-                return $data->matakuliah->name;
+                return $data->matakuliah->name_matakuliah;
             })
             ->editColumn('semester_id', function ($data) {
-                return $data->semester->name;
+                return $data->semester->name_semester;
             })
             ->editColumn('kelas_id', function ($data) {
-                return $data->kelas->name;
+                return $data->kelas->name_kelas;
             })
             ->editColumn('dosen_id', function ($data) {
-                return $data->dosen->name;
+                return $data->dosen->name_dosen;
             })
             ->editColumn('ruangan_id', function ($data) {
-                return $data->ruangan->name;
+                return $data->ruangan->name_ruangan;
             })
             ->editColumn('prodi_id', function ($data) {
-                return $data->prodi->name;
+                return $data->prodi->name_prodi;
             })
             ->addColumn('action', function ($data) {
                 return '

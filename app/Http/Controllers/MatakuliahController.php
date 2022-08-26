@@ -23,13 +23,13 @@ class MatakuliahController extends Controller
         $semester = Semester::all();
 
         if ($request->ajax()) {
-            $data = Matakuliah::select('id', 'kode', 'name', 'semester_id', 'prodi_id')->get();
+            $data = Matakuliah::select('id', 'kode', 'name_matakuliah', 'semester_id', 'prodi_id')->get();
             return DataTables::of($data)
             ->editColumn('semester_id', function ($data) {
-                return $data->semester->name;
+                return $data->semester->name_semester;
             })
             ->editColumn('prodi_id', function ($data) {
-                return $data->prodi->name;
+                return $data->prodi->name_prodi;
             })
                 ->addColumn('action', function ($data) {
                     return '
@@ -62,7 +62,7 @@ class MatakuliahController extends Controller
     {
         $rules = array(
             'kode' => 'required',
-            'name' => 'required',
+            'name_matakuliah' => 'required',
             'semester_id' => 'required',
             'prodi_id' => 'required',
         );
@@ -75,7 +75,7 @@ class MatakuliahController extends Controller
 
         $form_data = array(
             'kode' => $request->kode,
-            'name' => $request->name,
+            'name_matakuliah' => $request->name_matakuliah,
             'semester_id' => $request->semester_id,
             'prodi_id' => $request->prodi_id,
         );
@@ -121,7 +121,7 @@ class MatakuliahController extends Controller
     {
         $rules = array(
             'kode' => 'required',
-            'name' => 'required',
+            'name_matakuliah' => 'required',
             'semester_id' => 'required',
             'prodi_id' => 'required',
         );
@@ -134,7 +134,7 @@ class MatakuliahController extends Controller
 
         $form_data = array(
             'kode' => $request->kode,
-            'name' => $request->name,
+            'name_matakuliah' => $request->name_matakuliah,
             'semester_id' => $request->semester_id,
             'prodi_id' => $request->prodi_id,
         );

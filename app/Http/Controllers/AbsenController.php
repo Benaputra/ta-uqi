@@ -24,7 +24,7 @@ class AbsenController extends Controller
             $data = Absen::select('id', 'mahasiswa_id')->get();
             return DataTables::of($data)
             ->editColumn('mahasiswa_id', function ($data) {
-                return $data->mahasiswa->name;
+                return $data->mahasiswa->name_mahasiswa;
             })
             ->addColumn('action', function ($data) {
                 return '

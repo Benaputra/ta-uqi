@@ -33,7 +33,7 @@
                         @foreach ($dosens as $dosen)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $dosen->name }}</td>
+                                <td>{{ $dosen->name_dosen }}</td>
                                 <td>{{ $dosen->nip }}</td>
                                 <td><a class="btn btn-warning btn-sm"
                                         href="{{ route('dosen.edit', ['id' => $dosen->id]) }}"><i

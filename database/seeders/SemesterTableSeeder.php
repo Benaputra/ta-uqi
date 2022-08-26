@@ -16,28 +16,28 @@ class SemesterTableSeeder extends Seeder
     public function run()
     {
         Semester::create([
-            'name' => '1',
+            'name_semester' => '1',
         ]);
         Semester::create([
-            'name' => '2',
+            'name_semester' => '2',
         ]);
         Semester::create([
-            'name' => '3',
+            'name_semester' => '3',
         ]);
         Semester::create([
-            'name' => '4',
+            'name_semester' => '4',
         ]);
         Semester::create([
-            'name' => '5',
+            'name_semester' => '5',
         ]);
         Semester::create([
-            'name' => '6',
+            'name_semester' => '6',
         ]);
         Semester::create([
-            'name' => '7',
+            'name_semester' => '7',
         ]);
         Semester::create([
-            'name' => '8',
+            'name_semester' => '8',
         ]);
     }
 }

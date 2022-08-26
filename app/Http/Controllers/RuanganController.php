@@ -19,10 +19,10 @@ class RuanganController extends Controller
     {
         $prodi = Prodi::all();
         if ($request->ajax()) {
-            $data = Ruangan::select('id', 'name', 'prodi_id')->get();
+            $data = Ruangan::select('id', 'name_ruangan', 'prodi_id')->get();
             return DataTables::of($data)
             ->editColumn('prodi_id', function ($data) {
-                return $data->prodi->name;
+                return $data->prodi->name_prodi;
             })
                 ->addColumn('action', function ($data) {
                     return '
@@ -54,7 +54,7 @@ class RuanganController extends Controller
     public function store(Request $request)
     {
         $rules = array(
-            'name' => 'required',
+            'name_ruangan' => 'required',
             'prodi_id' => 'required',
         );
 
@@ -65,7 +65,7 @@ class RuanganController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_ruangan' => $request->name_ruangan,
             'prodi_id' => $request->prodi_id,
         );
 
@@ -109,7 +109,7 @@ class RuanganController extends Controller
     public function update(Request $request, Ruangan $ruangan)
     {
         $rules = array(
-            'name' => 'required',
+            'name_ruangan' => 'required',
             'prodi_id' => 'required',
         );
 
@@ -120,7 +120,7 @@ class RuanganController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_ruangan' => $request->name_ruangan,
             'prodi_id' => $request->prodi_id,
         );
 

@@ -69,7 +69,7 @@
                                         @foreach ($matakuliah as $item)
                                             @if (old('matakuliah_id') == $item->id)
                                             @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name_matakuliah }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -81,7 +81,7 @@
                                         @foreach ($semester as $item)
                                             @if (old('semester_id') == $item->id)
                                             @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name_semester }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -93,7 +93,7 @@
                                         @foreach ($kelas as $item)
                                             @if (old('kelas_id') == $item->id)
                                             @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name_kelas }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -113,7 +113,7 @@
                                         @foreach ($dosen as $item)
                                             @if (old('dosen_id') == $item->id)
                                             @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name_dosen }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -125,7 +125,7 @@
                                         @foreach ($ruangan as $item)
                                             @if (old('ruangan_id') == $item->id)
                                             @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name_ruangan }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -137,7 +137,7 @@
                                         @foreach ($prodi as $item)
                                             @if (old('prodi_id') == $item->id)
                                             @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
                                             @endif
                                         @endforeach
                                     </select>

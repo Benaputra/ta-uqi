@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('orangtuas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
+            $table->string('name_orangtua');
+            $table->string('email_orangtua');
+            $table->string('password_orangtua');
             $table->timestamps();
         });
     }

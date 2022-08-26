@@ -60,7 +60,7 @@
                                 @foreach ($semester as $item)
                                     @if (old('semester_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name_semester }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -72,7 +72,7 @@
                                 @foreach ($prodi as $item)
                                     @if (old('prodi_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -119,7 +119,7 @@
             columns: [
                 {data : 'id', name: 'id'},
                 {data : 'kode', name: 'kode'},
-                {data : 'name', name: 'name'},
+                {data : 'name_matakuliah', name: 'name_matakuliah'},
                 {data : 'semester_id', name: 'semester_id'},
                 {data : 'prodi_id', name: 'prodi_id'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
@@ -196,7 +196,7 @@
                 {
                     console.log('success: '+data);
                     $('#kode').val(data.result.kode);
-                    $('#name').val(data.result.name);
+                    $('#name_matakuliah').val(data.result.name_matakuliah);
                     $('#semester_id').val(data.result.semester_id);
                     $('#prodi_id').val(data.result.prodi_id);
                     $('#hidden_id').val(id);

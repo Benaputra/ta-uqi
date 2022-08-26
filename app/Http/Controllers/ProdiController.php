@@ -18,7 +18,7 @@ class ProdiController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Prodi::select('id', 'name')->get();
+            $data = Prodi::select('id', 'name_prodi')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function($data){
                     $button = '<button type="buton" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i>Edit</button>';
@@ -50,9 +50,9 @@ class ProdiController extends Controller
     public function store(Request $request)
     {
         $rules = array(
-            'name' => 'required',
+            'name_prodi' => 'required',
         );
-        
+
         $error = Validator::make($request->all(), $rules);
 
         if($error->fails())
@@ -61,7 +61,7 @@ class ProdiController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_prodi' => $request->name_prodi,
         );
 
         Prodi::create($form_data);
@@ -105,9 +105,9 @@ class ProdiController extends Controller
     public function update(Request $request, Prodi $prodi)
     {
         $rules = array(
-            'name' => 'required',
+            'name_prodi' => 'required',
         );
-        
+
         $error = Validator::make($request->all(), $rules);
 
         if($error->fails())
@@ -116,7 +116,7 @@ class ProdiController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_prodi' => $request->name_prodi,
         );
 
         Prodi::whereId($request->hidden_id)->update($form_data);

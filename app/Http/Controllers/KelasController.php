@@ -18,7 +18,7 @@ class KelasController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Kelas::select('id', 'name')->get();
+            $data = Kelas::select('id', 'name_kelas')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function($data){
                     $button = '<button type="buton" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i>Edit</button>';
@@ -59,12 +59,12 @@ class KelasController extends Controller
         // $mahasiswa->save();
 
         // dd($mahasiswa, $data);
-    
+
 
         $rules = array(
-            'name' => 'required',
+            'name_kelas' => 'required',
         );
-        
+
         $error = Validator::make($request->all(), $rules);
 
         if($error->fails())
@@ -73,7 +73,7 @@ class KelasController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_kelas' => $request->name_kelas,
         );
 
         Kelas::create($form_data);
@@ -117,9 +117,9 @@ class KelasController extends Controller
     public function update(Request $request, Kelas $kelas)
     {
         $rules = array(
-            'name' => 'required',
+            'name_kelas' => 'required',
         );
-        
+
         $error = Validator::make($request->all(), $rules);
 
         if($error->fails())
@@ -128,7 +128,7 @@ class KelasController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_kelas' => $request->name_kelas,
         );
 
         Kelas::whereId($request->hidden_id)->update($form_data);

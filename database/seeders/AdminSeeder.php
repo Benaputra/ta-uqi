@@ -50,7 +50,7 @@ class AdminSeeder extends Seeder
         $dosen->assignRole('dosen');
 
         $createMahasiswa = Mahasiswa::create([
-            'name'  => 'Benaputra Putra',
+            'name_mahasiswa'  => 'Benaputra Putra',
             'nim'  => '1234567890',
             'user_id' => $mahasiswa->id,
             'prodi_id' => 1,
@@ -58,13 +58,13 @@ class AdminSeeder extends Seeder
         ]);
 
         $createDosen = Dosen::create([
-            'name'  => 'Benaputra Dosen',
+            'name_dosen'  => 'Benaputra Dosen',
             'nip'  => '0987654321',
             'user_id' => $dosen->id,
         ]);
 
         $createMahasiswi = Mahasiswa::create([
-            'name'  => 'Putri',
+            'name_mahasiswa'  => 'Putri',
             'nim'  => '0809113',
             'user_id' => $mahasiswi->id,
             'prodi_id' => 1,

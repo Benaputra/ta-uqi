@@ -18,7 +18,7 @@ class SemesterController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Semester::select('id', 'name')->get();
+            $data = Semester::select('id', 'name_semester')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function($data){
                     $button = '<button type="buton" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i>Edit</button>';
@@ -50,9 +50,9 @@ class SemesterController extends Controller
     public function store(Request $request)
     {
         $rules = array(
-            'name' => 'required',
+            'name_semester' => 'required',
         );
-        
+
         $error = Validator::make($request->all(), $rules);
 
         if($error->fails())
@@ -61,7 +61,7 @@ class SemesterController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_semester' => $request->name_semester,
         );
 
         Semester::create($form_data);
@@ -105,9 +105,9 @@ class SemesterController extends Controller
     public function update(Request $request, Semester $semester)
     {
         $rules = array(
-            'name' => 'required',
+            'name_semester' => 'required',
         );
-        
+
         $error = Validator::make($request->all(), $rules);
 
         if($error->fails())
@@ -116,7 +116,7 @@ class SemesterController extends Controller
         }
 
         $form_data = array(
-            'name' => $request->name,
+            'name_semester' => $request->name_semester,
         );
 
         Semester::whereId($request->hidden_id)->update($form_data);

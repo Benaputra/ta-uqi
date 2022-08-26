@@ -21,13 +21,13 @@ class MahasiswaController extends Controller
         $kelas = Kelas::all();
 
         if ($request->ajax()) {
-            $data = Mahasiswa::select('id','user_id','nim', 'name', 'kelas_id', 'prodi_id')->get();
+            $data = Mahasiswa::select('id','user_id','nim', 'name_mahasiswa', 'kelas_id', 'prodi_id')->get();
             return DataTables::of($data)
             ->editColumn('kelas_id', function ($data) {
-                return $data->kelas->name;
+                return $data->kelas->name_kelas;
             })
             ->editColumn('prodi_id', function ($data) {
-                return $data->prodi->name;
+                return $data->prodi->name_prodi;
             })
             ->editColumn('email', function ($data) {
                 return $data->user->email;
@@ -46,7 +46,7 @@ class MahasiswaController extends Controller
     {
         $rules = array(
             'nim' => 'required',
-            'name' => 'required',
+            'name_mahasiswa' => 'required',
             'kelas_id' => 'required',
             'prodi_id' => 'required',
             'email' => 'required',
@@ -64,7 +64,7 @@ class MahasiswaController extends Controller
 
         $form_data = array(
             'nim' => $request->nim,
-            'name' => $request->name,
+            'name_mahasiswa' => $request->name_mahasiswa,
             'kelas_id' => $request->kelas_id,
             'prodi_id' => $request->prodi_id,
             'email' => $request->email,
@@ -88,7 +88,7 @@ class MahasiswaController extends Controller
     {
         $rules = array(
             'nim' => 'required',
-            'name' => 'required',
+            'name_mahasiswa' => 'required',
             'kelas_id' => 'required',
             'prodi_id' => 'required',
             'email' => 'required',
@@ -102,7 +102,7 @@ class MahasiswaController extends Controller
 
         $form_data = array(
             'nim' => $request->nim,
-            'name' => $request->name,
+            'name_mahasiswa' => $request->name_mahasiswa,
             'kelas_id' => $request->kelas_id,
             'prodi_id' => $request->prodi_id,
             'email' => $request->email,

@@ -62,7 +62,7 @@
                                 @foreach ($kelas as $item)
                                     @if (old('kelas_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name_kelas }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -74,7 +74,7 @@
                                 @foreach ($prodi as $item)
                                     @if (old('prodi_id') == $item->id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -136,8 +136,8 @@
                     name: 'nim'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'name_mahasiswa',
+                    name: 'name_mahasiswa'
                 },
                 {
                     data: 'kelas_id',
@@ -229,7 +229,7 @@
                 success: function(data) {
                     console.log('success: ' + data);
                     $('#nim').val(data.result.nim);
-                    $('#name').val(data.result.name);
+                    $('#name_mahasiswa').val(data.result.name_mahasiswa);
                     $('#kelas_id').val(data.result.kelas_id);
                     $('#prodi_id').val(data.result.prodi_id);
                     $('#email').val(data.result.email);

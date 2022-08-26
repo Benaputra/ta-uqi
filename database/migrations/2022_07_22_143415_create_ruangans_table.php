@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('ruangans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name_ruangan');
             $table->unsignedBigInteger('prodi_id')->nullable();
             $table->foreign('prodi_id')->references('id')->on('prodis')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

@@ -18,7 +18,7 @@ class RuanganFactory extends Factory
     public function definition()
     {
         return [
-            'name' => "TI- ".$this->faker->numberBetween(1, 10),
+            'name_ruangan' => "TI- ".$this->faker->numberBetween(1, 10),
             'prodi_id' => Prodi::inRandomOrder()->first()->id,
         ];
     }

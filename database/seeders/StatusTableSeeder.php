@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+Namespace Database\Seeders;
 
 use App\Models\Status;
 use Illuminate\Database\Seeder;
@@ -16,16 +16,16 @@ class StatusTableSeeder extends Seeder
     public function run()
     {
         Status::create([
-            'name' => 'Hadir',
+            'name_status' => 'Hadir',
         ]);
         Status::create([
-            'name' => 'Sakit',
+            'name_status' => 'Sakit',
         ]);
         Status::create([
-            'name' => 'Izin',
+            'name_status' => 'Izin',
         ]);
         Status::create([
-            'name' => 'Alpha',
+            'name_status' => 'Alpha',
         ]);
     }
 }

@@ -41,7 +41,7 @@ class DosenController extends Controller
     {
         $rules = array(
             'username' => 'required',
-            'name' => 'required',
+            'name_dosen' => 'required',
             'nip' => 'required',
             'email' => 'required',
             'password' => 'required',
@@ -60,7 +60,7 @@ class DosenController extends Controller
         $simpan_user = $user_dosen->assignRole('dosen');
         $dosen = Dosen::create([
             'user_id' => $user_dosen->id,
-            'name' => $request->name,
+            'name_dosen' => $request->name_dosen,
             'nip' => $request->nip,
         ]);
         // return response()->json(['success' => 'Data berhasil ditambahkan']);
@@ -78,7 +78,7 @@ class DosenController extends Controller
     public function update(Request $request)
     {
         $dosen = Dosen::find($request->id);
-        $dosen->name = $request->name;
+        $dosen->name_dosen = $request->name_dosen;
         $dosen->nip = $request->nip;
         $dosen->user->name = $request->username;
         $dosen->user->email = $request->email;

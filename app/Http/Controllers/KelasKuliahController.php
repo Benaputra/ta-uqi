@@ -35,7 +35,7 @@ class KelasKuliahController extends Controller
             return DataTables::of($data)
 
                 ->editColumn('mahasiswa_id', function ($data) {
-                    return $data->mahasiswa->first()->name;
+                    return $data->mahasiswa->first()->name_mahasiswa;
                     // return "hehe";
                 })
                 ->editColumn('jadwal_id', function ($data) {
@@ -71,11 +71,8 @@ class KelasKuliahController extends Controller
     public function store(Request $request)
     {
         $rules = array(
-            'tahun_ajaran' => 'required',
-            'prodi_id' => 'required',
             'mahasiswa_id' => 'required',
-            'matakuliah_id' => 'required',
-            'kelas_id' => 'required',
+            'jadwal_id' => 'required',
         );
 
         $error = Validator::make($request->all(), $rules);
@@ -85,11 +82,8 @@ class KelasKuliahController extends Controller
         }
 
         $form_data = array(
-            'tahun_ajaran' => $request->tahun_ajaran,
-            'prodi_id' => $request->prodi_id,
             'mahasiswa_id' => $request->mahasiswa_id,
-            'matakuliah_id' => $request->matakuliah_id,
-            'kelas_id' => $request->kelas_id,
+            'jadwal_id' => $request->jadwal_id,
         );
 
         KelasKuliah::create($form_data);
@@ -132,11 +126,8 @@ class KelasKuliahController extends Controller
     public function update(Request $request, KelasKuliah $kelasKuliah)
     {
         $rules = array(
-            'tahun_ajaran' => 'required',
-            'prodi_id' => 'required',
             'mahasiswa_id' => 'required',
-            'matakuliah_id' => 'required',
-            'kelas_id' => 'required',
+            'jadwal_id' => 'required',
         );
 
         $error = Validator::make($request->all(), $rules);
@@ -146,11 +137,8 @@ class KelasKuliahController extends Controller
         }
 
         $form_data = array(
-            'tahun_ajaran' => $request->tahun_ajaran,
-            'prodi_id' => $request->prodi_id,
             'mahasiswa_id' => $request->mahasiswa_id,
-            'matakuliah_id' => $request->matakuliah_id,
-            'kelas_id' => $request->kelas_id,
+            'jadwal_id' => $request->jadwal_id,
         );
 
         KelasKuliah::whereId($request->hidden_id)->update($form_data);

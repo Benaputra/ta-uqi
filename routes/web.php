@@ -40,15 +40,20 @@ Route::get('/adminkunya', function () {
 
 Route::get('/dashboard', function (KelasKuliah $kelasMhs) {
     $kelasMhs = User::with('kelasKuliah')
-    ->where('id','=',auth()->user()->id); //menghasilkan 5 kolom
+        ->where('id', '=', auth()->user()->id); //menghasilkan 5 kolom
 
     $jadwalMhs = Jadwal::join('matakuliahs', 'matakuliah_id', '=', 'matakuliahs.id')
-                ->join('dosens', 'dosen_id', '=', 'dosens.id')
-                ->join('kelas', 'kelas_id', '=', 'kelas.id')
-                ->join('ruangans', 'ruangan_id', '=', 'ruangans.id')
-                // ->join('prodis', 'prodi_id', '=', 'prodis.id')
-                // ->union($kelasMhs)
-                ->get();
+        ->join('dosens', 'dosen_id', '=', 'dosens.id')
+        ->join('kelas', 'kelas_id', '=', 'kelas.id')
+        ->join('ruangans', 'ruangan_id', '=', 'ruangans.id')
+        // ->join('prodis', 'prodi_id', '=', 'prodis.id')
+        // ->union($kelasMhs)
+        ->get([
+            'matakuliahs.name_matakuliah',
+            'dosens.name_dosen',
+            'kelas.name_kelas',
+            'ruangans.name_ruangan'
+        ]);
     // $jadwal = DB::table('jadwals')
     //     ->join('matakuliahs', 'matakuliah_id', '=', 'matakuliahs.id')
     //     ->join('dosens', 'dosen_id', '=', 'dosens.id')
@@ -68,8 +73,8 @@ Route::get('/dashboard', function (KelasKuliah $kelasMhs) {
     //     ->select('mahasiswas.name_mahasiswa','users.id')
     //     ->get();
 
-        // $item = [$kelasMhs, $jadwalMhs];
-        return $jadwalMhs->toJson();
+    // $item = [$kelasMhs, $jadwalMhs];
+    return $jadwalMhs->toJson();
     // dd($item);
     return view('dashboard', compact('jadwalMhs'));
 })->middleware(['auth'])->name('dashboard');

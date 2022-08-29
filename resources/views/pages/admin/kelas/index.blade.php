@@ -45,7 +45,7 @@
                         <span id="form_result"></span>
                         <div class="form-group">
                             <label>Kelas : </label>
-                            <input type="text" name="name" placeholder="Kelas" id="name" class="form-control" />
+                            <input type="text" name="name_kelas" placeholder="Kelas" id="name_kelas" class="form-control" />
                         </div>
                         <input type="hidden" name="action" id="action" value="Add" />
                         <input type="hidden" name="hidden_id" id="hidden_id" />

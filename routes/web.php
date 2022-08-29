@@ -10,6 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\JadwalController;
@@ -34,50 +35,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/adminkunya', function () {
-    return "hheheeh";
+// Route::get('/dashboard', [HomeController::class,'index'])
+// ->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth'])->prefix('dashboard')->group(function(){
+    Route::get('/', [HomeController::class,'index'])->name('dashboard');
+    Route::get('/show_kelas/{id}', [HomeController::class,'show_kelas'])->name('dashboard_showKelas');
 });
-
-Route::get('/dashboard', function (KelasKuliah $kelasMhs) {
-    $kelasMhs = User::with('kelasKuliah')
-        ->where('id', '=', auth()->user()->id); //menghasilkan 5 kolom
-
-    $jadwalMhs = Jadwal::join('matakuliahs', 'matakuliah_id', '=', 'matakuliahs.id')
-        ->join('dosens', 'dosen_id', '=', 'dosens.id')
-        ->join('kelas', 'kelas_id', '=', 'kelas.id')
-        ->join('ruangans', 'ruangan_id', '=', 'ruangans.id')
-        // ->join('prodis', 'prodi_id', '=', 'prodis.id')
-        // ->union($kelasMhs)
-        ->get([
-            'matakuliahs.name_matakuliah',
-            'dosens.name_dosen',
-            'kelas.name_kelas',
-            'ruangans.name_ruangan'
-        ]);
-    // $jadwal = DB::table('jadwals')
-    //     ->join('matakuliahs', 'matakuliah_id', '=', 'matakuliahs.id')
-    //     ->join('dosens', 'dosen_id', '=', 'dosens.id')
-    //     ->join('kelas', 'kelas_id', '=', 'kelas.id')
-    //     // ->join('semesters', 'semester_id', '=','semesters.id')
-    //     ->select(
-    //         'jadwals.*',
-    //         'matakuliahs.name_matakuliah',
-    //         'dosens.name_dosen',
-    //         'kelas.name_kelas'
-    //     )
-    //     ->get();
-    // $kelasMhs = DB::table('kelas_kuliahs')
-    //     ->join('mahasiswas', 'mahasiswa_id' , '=', 'mahasiswas.id')
-    //     ->join('users', 'user_id' , '=', 'users.id')
-    //     // ->where('mahasiswa.user_id', '=', auth()->user()->mahasiswa_id)
-    //     ->select('mahasiswas.name_mahasiswa','users.id')
-    //     ->get();
-
-    // $item = [$kelasMhs, $jadwalMhs];
-    return $jadwalMhs->toJson();
-    // dd($item);
-    return view('dashboard', compact('jadwalMhs'));
-})->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');

@@ -14,6 +14,6 @@ class MatakuliahTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Matakuliah::factory()->count(10)->create();
+        \App\Models\Matakuliah::factory()->count(2)->create();
     }
 }

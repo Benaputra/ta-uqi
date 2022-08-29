@@ -45,7 +45,7 @@
                         <span id="form_result"></span>
                         <div class="form-group">
                             <label>Ruangan : </label>
-                            <input type="text" name="name" placeholder="Ruangan" id="name" class="form-control" />
+                            <input type="text" name="name_ruangan" placeholder="Ruangan" id="name_ruangan" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label>Prodi : </label>

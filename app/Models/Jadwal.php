@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use \Znck\Eloquent\Traits\BelongsToThrough;
 
 class Jadwal extends Model
 {
@@ -21,6 +22,11 @@ class Jadwal extends Model
     //     'prodi_id',
     // ];
 
+    public function matakuliahs()
+    {
+        return $this->belongsToThrough(Matakuliah::class,KelasKuliah::class);
+    }
+
     public function matakuliah()
     {
         return $this->belongsTo(Matakuliah::class,'matakuliah_id','id');
@@ -33,7 +39,7 @@ class Jadwal extends Model
 
     public function dosen()
     {
-        return $this->belongsTo(Dosen::class,'dosen_id','id');
+        return $this->belongsTo(Dosen::class,'dosen_id','user_id');
     }
 
     public function ruangan()

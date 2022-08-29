@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <label>Nama Mahasiswa : </label>
-                            <input type="text" name="name" placeholder="Nama Mahasiswa" id="name"
+                            <input type="text" name="name_mahasiswa" placeholder="Nama Mahasiswa" id="name_mahasiswa"
                                 class="form-control" />
                         </div>
                         <div class="form-group">

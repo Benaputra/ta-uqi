@@ -23,7 +23,7 @@ class MatakuliahController extends Controller
         $semester = Semester::all();
 
         if ($request->ajax()) {
-            $data = Matakuliah::select('id', 'kode', 'name_matakuliah', 'semester_id', 'prodi_id')->get();
+            $data = Matakuliah::select('id', 'kode_matakuliah', 'name_matakuliah', 'semester_id', 'prodi_id')->get();
             return DataTables::of($data)
             ->editColumn('semester_id', function ($data) {
                 return $data->semester->name_semester;
@@ -60,21 +60,21 @@ class MatakuliahController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = array(
-            'kode' => 'required',
-            'name_matakuliah' => 'required',
-            'semester_id' => 'required',
-            'prodi_id' => 'required',
-        );
+        // $rules = array(
+        //     'kode_matakuliah' => 'required',
+        //     'name_matakuliah' => 'required',
+        //     'semester_id' => 'required',
+        //     'prodi_id' => 'required',
+        // );
 
-        $error = Validator::make($request->all(), $rules);
+        // $error = Validator::make($request->all(), $rules);
 
-        if ($error->fails()) {
-            return response()->json(['errors' => $error->errors()->all()]);
-        }
+        // if ($error->fails()) {
+        //     return response()->json(['errors' => $error->errors()->all()]);
+        // }
 
         $form_data = array(
-            'kode' => $request->kode,
+            'kode_matakuliah' => $request->kode_matakuliah,
             'name_matakuliah' => $request->name_matakuliah,
             'semester_id' => $request->semester_id,
             'prodi_id' => $request->prodi_id,
@@ -119,21 +119,21 @@ class MatakuliahController extends Controller
      */
     public function update(Request $request, Matakuliah $matakuliah)
     {
-        $rules = array(
-            'kode' => 'required',
-            'name_matakuliah' => 'required',
-            'semester_id' => 'required',
-            'prodi_id' => 'required',
-        );
+        // $rules = array(
+        //     'kode_matakuliah' => 'required',
+        //     'name_matakuliah' => 'required',
+        //     'semester_id' => 'required',
+        //     'prodi_id' => 'required',
+        // );
 
-        $error = Validator::make($request->all(), $rules);
+        // $error = Validator::make($request->all(), $rules);
 
-        if ($error->fails()) {
-            return response()->json(['errors' => $error->errors()->all()]);
-        }
+        // if ($error->fails()) {
+        //     return response()->json(['errors' => $error->errors()->all()]);
+        // }
 
         $form_data = array(
-            'kode' => $request->kode,
+            'kode_matakuliah' => $request->kode_matakuliah,
             'name_matakuliah' => $request->name_matakuliah,
             'semester_id' => $request->semester_id,
             'prodi_id' => $request->prodi_id,

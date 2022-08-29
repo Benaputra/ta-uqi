@@ -44,7 +44,7 @@
                         <span id="form_result"></span>
                         <div class="form-group">
                             <label>Semester : </label>
-                            <input type="text" name="name" placeholder="Semester" id="name" class="form-control" />
+                            <input type="text" name="name_semester" placeholder="Semester" id="name_semester" class="form-control" />
                         </div>
                         <input type="hidden" name="action" id="action" value="Add" />
                         <input type="hidden" name="hidden_id" id="hidden_id" />

@@ -23,7 +23,7 @@
                 <form action="{{ route('dosen.update', $dosen) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="text" name="name" id="name" value="{{ $dosen->name_dosen }}">
+                    <input type="text" name="name_dosen" id="name_dosen" value="{{ $dosen->name_dosen }}">
                     <input type="text" name="nip" id="nip" value="{{ $dosen->nip }}">
                     <input type="text" name="username" id="username" value="{{ $dosen->user->name }}">
                     <input type="text" name="email" id="email" value="{{ $dosen->user->email }}">

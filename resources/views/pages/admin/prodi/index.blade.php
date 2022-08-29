@@ -44,7 +44,7 @@
                         <span id="form_result"></span>
                         <div class="form-group">
                             <label>Program Studi : </label>
-                            <input type="text" name="name" placeholder="Program Studi" id="name" class="form-control" />
+                            <input type="text" name="name_prodi" placeholder="Program Studi" id="name_prodi" class="form-control" />
                         </div>
                         <input type="hidden" name="action" id="action" value="Add" />
                         <input type="hidden" name="hidden_id" id="hidden_id" />

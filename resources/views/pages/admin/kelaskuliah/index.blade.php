@@ -48,9 +48,9 @@
                             <select class="form-select" name="mahasiswa_id" id="mahasiswa_id">
                                 <option value="">Silahkan pilih Nama Mahasiswa</option>
                                 @foreach ($mahasiswa as $item)
-                                    @if (old('mahasiswa_id') == $item->id)
+                                    @if (old('mahasiswa_id') == $item->user_id)
                                     @else
-                                        <option value="{{ $item->id }}">{{ $item->name_mahasiswa }}</option>
+                                        <option value="{{ $item->user_id }}">{{ $item->name_mahasiswa }}</option>
                                     @endif
                                 @endforeach
                             </select>

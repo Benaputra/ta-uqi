@@ -19,8 +19,8 @@ class MatakuliahFactory extends Factory
     public function definition()
     {
         return [
-            'kode_matakuliah' => 'MK'.$this->faker->numberBetween(1, 10),
-            'name_matakuliah' => 'Pemrograman'.$this->faker->numberBetween(1, 10),
+            'kode_matakuliah' => 'MK'.$this->faker->numberBetween(1, 2),
+            'name_matakuliah' => 'Pemrograman'.$this->faker->numberBetween(1, 2),
             'prodi_id' => Prodi::inRandomOrder()->first()->id,
             'semester_id' => Semester::inRandomOrder()->first()->id,
         ];

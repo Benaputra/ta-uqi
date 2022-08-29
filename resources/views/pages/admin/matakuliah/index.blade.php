@@ -47,11 +47,11 @@
                         <span id="form_result"></span>
                         <div class="form-group">
                             <label>Kode Mata Kuliah : </label>
-                            <input type="text" name="kode" placeholder="Kode Mata Kuliah" id="kode" class="form-control" />
+                            <input type="text" name="kode_matakuliah" placeholder="Kode Mata Kuliah" id="kode_matakuliah" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label>Mata Kuliah : </label>
-                            <input type="text" name="name" placeholder="Mata Kuliah" id="name" class="form-control" />
+                            <input type="text" name="name_matakuliah" placeholder="Mata Kuliah" id="name_matakuliah" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label>Semester : </label>
@@ -118,7 +118,7 @@
             ajax: "{{ route('matakuliah.index') }}",
             columns: [
                 {data : 'id', name: 'id'},
-                {data : 'kode', name: 'kode'},
+                {data : 'kode_matakuliah', name: 'kode_matakuliah'},
                 {data : 'name_matakuliah', name: 'name_matakuliah'},
                 {data : 'semester_id', name: 'semester_id'},
                 {data : 'prodi_id', name: 'prodi_id'},
@@ -195,7 +195,7 @@
                 success:function(data)
                 {
                     console.log('success: '+data);
-                    $('#kode').val(data.result.kode);
+                    $('#kode_matakuliah').val(data.result.kode_matakuliah);
                     $('#name_matakuliah').val(data.result.name_matakuliah);
                     $('#semester_id').val(data.result.semester_id);
                     $('#prodi_id').val(data.result.prodi_id);

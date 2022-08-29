@@ -96,7 +96,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Nama Dosen : </label>
-                                <input type="text" name="name" placeholder="Nama Dosen" id="name"
+                                <input type="text" name="name_dosen" placeholder="Nama Dosen" id="name_dosen"
                                     class="form-control" />
                             </div>
                             <div class="form-group">

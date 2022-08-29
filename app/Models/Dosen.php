@@ -23,7 +23,7 @@ class Dosen extends Model
 
     public function jadwal()
     {
-        return $this->hasMany(Jadwal::class,'id','dosen_id');
+        return $this->hasMany(Jadwal::class,'user_id','dosen_id');
     }
 
     public function user()

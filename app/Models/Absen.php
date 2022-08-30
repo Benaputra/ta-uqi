@@ -8,8 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Absen extends Model
 {
     use HasFactory;
+    protected $table = 'Absens';
 
-    protected $guarded = [];
+
+    protected $fillable = [
+        'mahasiswa_id',
+        'jadwal_id',
+        'dosen_id',
+        'jam_absen',
+        'tanggal_absen',
+        'keterangan'
+    ];
 
     public function mahasiswa()
     {

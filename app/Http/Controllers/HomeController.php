@@ -47,16 +47,51 @@ class HomeController extends Controller
         $tanggal_absen = Carbon::now();
         $jam_absen = Carbon::now();
 
-        for ($i=0; $i<count($id); $i++){
-            $saveAbsen = [
-                // 'id' =>$id[$i],
-                'keterangan' => $keterangan[$i],
-                'mahasiswa_id' => $mahasiswa_id[$i],
-                'jadwal_id' => $jadwal_id[$i],
-                'tanggal_absen' => $tanggal_absen->toDateString(),
-                'jam_absen' => $jam_absen->toTimeString(),
-            ];
-        }
+        $kelasByMhs = KelasKuliah::with('jadwal','mahasiswa')
+        ->where('jadwal_id','=', $id)->get();
+
+
+
+        // foreach ($kelasByMhs as $items) {
+        //     $saveAbsen[] = array(
+        //         'keterangan' => $request['keterangan'],
+        //         'mahasiswa_id' => $request['mahasiswa_id'],
+        //         'jadwal_id' => $request['jadwal_id' ],
+        //         'tanggal_absen' => $request['tanggal_absen'],
+        //         'jam_absen' => $request['jam_absen'],
+        //     );
+        // }
+
+        // $saveAbsen = [];
+        //     foreach($kelasByMhs as $key =>$value) {
+        //         array_push($saveAbsen, [
+        //             'keterangan'=>$value,
+        //             'mahasiswa_id'=>$value,
+        //             'jadwal_id'=>$value,
+        //             'tanggal_absen'=> Carbon::now()->toDateString(),
+        //             'jam_absen'=>Carbon::now()->toDateString(),
+        //         ]);
+        //     }
+
+
+        // for ($i=0; $i<2; $i++){
+        //     $saveAbsen = array([
+        //         // 'id' =>$id[$i],
+        //         'keterangan' => $keterangan[$i],
+        //         'mahasiswa_id' => $mahasiswa_id[$i],
+        //         'jadwal_id' => $jadwal_id[$i],
+        //         'tanggal_absen' => $tanggal_absen->toDateString(),
+        //         'jam_absen' => $jam_absen->toTimeString(),
+        //     ]);
+        // }
+        $saveAbsen = [
+            // 'id' =>$id[$i],
+            'keterangan' => $keterangan,
+            'mahasiswa_id' => $mahasiswa_id,
+            'jadwal_id' => $jadwal_id,
+            'tanggal_absen' => $tanggal_absen->toDateString(),
+            'jam_absen' => $jam_absen->toTimeString(),
+        ];
         // return dd($saveAbsen);
         Absen::insert($saveAbsen);
         return back();

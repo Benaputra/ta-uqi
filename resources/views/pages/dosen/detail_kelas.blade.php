@@ -20,45 +20,44 @@
                                 <th scope="col" class="py-3 px-6">
                                     Nama Mahasiswa
                                 </th>
-                                <th scope="col" class="py-3 px-6">
+                                <th scope="col" class="py-3 px-6 text-center" colspan="3">
                                     Status
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kelasByMhs as $items)
-                                <tr class="">
-                                    <td class="py-4 px-6">
-                                        {{ $loop->iteration }}
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        {{ $items->mahasiswa->first()->nim }}
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        {{ $items->mahasiswa->first()->name_mahasiswa }}
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <form action="{{ route('dashboard.save_absen') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="id[]" value="{{ $items->id }}">
+                            <form action="{{ route('dashboard.save_absen') }}" method="POST">
+                                @foreach ($kelasByMhs as $items)
+                                    @csrf
+                                    <input type="hidden" name="jadwal_id[]" value="{{ $items->jadwal_id }}">
+                                    <input type="hidden" name="tanggal_absen[]" value="{{ $items->mahasiswa_id }}">
+                                    <input type="hidden" name="jam_absen[]" value="{{ $items->mahasiswa_id }}">
+                                    <input type="hidden" name="id[]" value="{{ $items->id }}">
+                                    <input type="hidden" name="mahasiswa_id[]" value="{{ $items->mahasiswa_id }}">
+                                    <tr class="">
+                                        <td class="py-4 px-6">
+                                            {{ $loop->iteration }}
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            {{ $items->mahasiswa->first()->nim }}
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            {{ $items->mahasiswa->first()->name_mahasiswa }}
+                                        </td>
+                                        <td class="py-4 px-6">
                                             <label for="">Hadir</label>
-                                            <input class="form-control {{ $items->id }}" type="checkbox"
-                                                name="keterangan[]" value="Hadir">
-                                            <hr>
+                                            <input class="form-control" type="checkbox" name="keterangan[]" value="Hadir">
+                                        </td>
+                                        <td class="py-4 px-6">
                                             <label for="">Sakit</label>
-                                            <input class="form-control {{ $items->id }}" type="checkbox"
-                                                name="keterangan[]" value="Sakit">
-                                            <hr>
+                                            <input class="form-control" type="checkbox" name="keterangan[]" value="Sakit">
+                                        </td>
+                                        <td class="py-4 px-6">
                                             <label for="">Izin</label>
-                                            <input class="form-control {{ $items->id }}" type="checkbox"
-                                                name="keterangan[]" value="Absen">
-
-                                            <input type="hidden" name="jadwal_id[]" value="{{ $items->jadwal_id }}">
-                                            <input type="hidden" name="mahasiswa_id[]"
-                                                value="{{ $items->mahasiswa->first()->id }}">
-                                    </td>
-                                </tr>
-                            @endforeach
+                                            <input class="form-control" type="checkbox" name="keterangan[]" value="Absen">
+                                        </td>
+                                    </tr>
+                                @endforeach
                         </tbody>
                     </table>
                     <hr>
@@ -67,8 +66,8 @@
                         type="submit">
                         Simpan
                     </button>
-                    </form>
                 </div>
+                </form>
             </div>
         @endrole
 </x-app-layout>

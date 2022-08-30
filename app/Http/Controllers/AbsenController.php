@@ -23,8 +23,8 @@ class AbsenController extends Controller
         if ($request->ajax()) {
             $data = Absen::select('id', 'mahasiswa_id')->get();
             return DataTables::of($data)
-            ->editColumn('mahasiswa_id', function ($data) {
-                return $data->mahasiswa->name_mahasiswa;
+            ->editColumn('mahasiswa_id', function($data) {
+                return $data->mahasiswa->first()->name_mahasiswa;
             })
             ->addColumn('action', function ($data) {
                 return '
@@ -90,9 +90,13 @@ class AbsenController extends Controller
      * @param  \App\Models\Absen  $absen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Absen $absen)
+    public function edit(Absen $absen, $id)
     {
-        //
+        if(request()->ajax())
+        {
+            $data = Absen::findOrFail($id);
+            return response()->json(['result' => $data]);
+        }
     }
 
     /**
@@ -104,7 +108,23 @@ class AbsenController extends Controller
      */
     public function update(Request $request, Absen $absen)
     {
-        //
+        $rules = array(
+            'mahasiswa_id' => 'required',
+        );
+
+        $error = Validator::make($request->all(), $rules);
+
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $form_data = array(
+            'mahasiswa_id' => $request->mahasiswa_id,
+        );
+
+        Absen::whereId($request->hidden_id)->update($form_data);
+
+        return response()->json(['success' => 'Data berhasil diubah']);
     }
 
     /**
@@ -113,8 +133,9 @@ class AbsenController extends Controller
      * @param  \App\Models\Absen  $absen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Absen $absen)
+    public function destroy(Absen $absen, $id)
     {
-        //
+        $data = Absen::findOrFail($id);
+        $data->delete();
     }
 }

@@ -302,7 +302,8 @@
                 success: function(data) {
                     console.log('success: ' + data);
                     $('#hari').val(data.result.hari);
-                    $('#jam').val(data.result.jam);
+                    $('#jam_mulai').val(data.result.jam_mulai);
+                    $('#jam_selesai').val(data.result.jam_selesai);
                     $('#matakuliah_id').val(data.result.matakuliah_id);
                     $('#semester_id').val(data.result.semester_id);
                     $('#kelas_id').val(data.result.kelas_id);

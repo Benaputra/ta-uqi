@@ -13,7 +13,7 @@ class Absen extends Model
 
     public function mahasiswa()
     {
-        return $this->hasMany(Mahasiswa::class);
+        return $this->hasMany(Mahasiswa::class, 'id', 'mahasiswa_id');
     }
     public function jadwal()
     {

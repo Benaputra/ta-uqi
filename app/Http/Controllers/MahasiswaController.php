@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Prodi;
-use App\Models\Semester;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -59,19 +59,20 @@ class MahasiswaController extends Controller
             return response()->json(['errors' => $error->errors()->all()]);
         }
 
-        $pass = $request->password;
-        $postpass = Hash::make($pass);
-
-        $form_data = array(
-            'nim' => $request->nim,
+        $user_mhs = User::create([
+            'name' => $request->name_mahasiswa,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        $simpan_user = $user_mhs->assignRole('mahasiswa');
+        $dosen = Mahasiswa::create([
+            'user_id' => $user_mhs->id,
             'name_mahasiswa' => $request->name_mahasiswa,
+            'nim' => $request->nim,
             'kelas_id' => $request->kelas_id,
             'prodi_id' => $request->prodi_id,
-            'email' => $request->email,
-            'password' => $postpass,
-        );
+        ]);
 
-        Mahasiswa::create($form_data);
 
         return response()->json(['success' => 'Data berhasil ditambahkan']);
     }
@@ -108,7 +109,15 @@ class MahasiswaController extends Controller
             'email' => $request->email,
         );
 
-        Mahasiswa::whereId($request->hidden_id)->update($form_data);
+        $mahasiswa = Mahasiswa::find($request->hidden_id);
+        $mahasiswa->name_mahasiswa = $request->name_mahasiswa;
+        $mahasiswa->nim = $request->nim;
+        $mahasiswa->kelas_id = $request->kelas_id;
+        $mahasiswa->prodi_id = $request->prodi_id;
+        $mahasiswa->user->email = $request->email;
+        $mahasiswa->push();
+
+        // Mahasiswa::whereId($request->hidden_id)->update($form_data);
 
         return response()->json(['success' => 'Data berhasil diubah']);
     }

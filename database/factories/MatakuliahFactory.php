@@ -20,7 +20,7 @@ class MatakuliahFactory extends Factory
     {
         return [
             'kode_matakuliah' => 'MK'.$this->faker->numberBetween(1, 2),
-            'name_matakuliah' => 'Pemrograman'.$this->faker->numberBetween(1, 2),
+            'name_matakuliah' => 'Pemrograman '.$this->faker->numberBetween(1, 2),
             'prodi_id' => Prodi::inRandomOrder()->first()->id,
             'semester_id' => Semester::inRandomOrder()->first()->id,
         ];

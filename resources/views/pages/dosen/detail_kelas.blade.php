@@ -27,7 +27,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($kelasByMhs as $items)
-                                <input type="text" name="hari" value="{{ $items->jadwal->first()->hari }}">
+                                {{-- <input type="text" name="hari" value="{{ $items->jadwal->first()->hari }}" --}}
                                     <tr class="">
                                         <td class="py-4 px-6">
                                             {{ $loop->iteration }}

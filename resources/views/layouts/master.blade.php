@@ -6,7 +6,7 @@
     @include('include.meta')
 
 
-    <title>Semangat - Syauqi</title>
+    <title>{{ config('app.name', 'Presensi Teknik Elektro') }}</title>
 
     @include('include.css')
     @stack('add_css')

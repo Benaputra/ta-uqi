@@ -41,6 +41,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->prefix('dashboard')->group(function(){
     Route::get('/', [HomeController::class,'index'])->name('dashboard');
     Route::get('/show_kelas/{id}', [HomeController::class,'show_kelas'])->name('dashboard_showKelas');
+    Route::post('/save_absen', [HomeController::class,'save_absen'])->name('dashboard.save_absen');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {

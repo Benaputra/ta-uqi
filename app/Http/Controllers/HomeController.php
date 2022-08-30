@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Jadwal;
 use App\Models\KelasKuliah;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Absen;
 
 class HomeController extends Controller
 {
@@ -38,10 +40,25 @@ class HomeController extends Controller
 
     public function save_absen(Request $request)
     {
-        $hadir = $request->hadir;
-        $alpha = $request->alpha;
-        $saveAbsen = [
+        $id = $request->id;
+        $keterangan = $request->keterangan;
+        $mahasiswa_id = $request->mahasiswa_id;
+        $jadwal_id = $request->jadwal_id;
+        $tanggal_absen = Carbon::now();
+        $jam_absen = Carbon::now();
 
-        ];
+        for ($i=0; $i<count($id); $i++){
+            $saveAbsen = [
+                // 'id' =>$id[$i],
+                'keterangan' => $keterangan[$i],
+                'mahasiswa_id' => $mahasiswa_id[$i],
+                'jadwal_id' => $jadwal_id[$i],
+                'tanggal_absen' => $tanggal_absen->toDateString(),
+                'jam_absen' => $jam_absen->toTimeString(),
+            ];
+        }
+        // return dd($saveAbsen);
+        Absen::insert($saveAbsen);
+        return back();
     }
 }

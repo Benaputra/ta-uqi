@@ -40,9 +40,9 @@
     </li>
     <li class="nav-item {{ Request::is('admin/matakuliah*') ? 'active' : '' }}">
         <a class="nav-link" href="/admin/matakuliah">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-book-open"></i>
             <span>Mata Kuliah</span></a>
-    </li>
+</li>
     <li class="nav-item {{ Request::is('admin/prodi*') ? 'active' : '' }}">
         <a class="nav-link" href="/admin/prodi">
             <i class="fas fa-fw fa-table"></i>

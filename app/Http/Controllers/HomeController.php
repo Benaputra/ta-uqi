@@ -14,6 +14,15 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // $getMhs = KelasKuliah::with('mahasiswa.user')->get();
+
+        // foreach ($getMhs as $mhs) {
+        //     foreach ($mhs as $authMhs) {
+        //         if($authMhs  == auth()->id()){
+        //             return $authMhs;
+        //         }
+        //     }
+        // }
         $getKelasMhs = KelasKuliah::with('jadwal.matakuliah', 'mahasiswa')
             ->where('mahasiswa_id', '=', auth()->user()->id)
             ->get();
@@ -22,7 +31,7 @@ class HomeController extends Controller
             ->where('dosen_id', '=', auth()->id())
             ->get();
 
-
+        // return $getMhs->toJson();
         return view ('dashboard', compact('getKelasMhs', 'getKelasDosen'));
     }
 
@@ -36,11 +45,11 @@ class HomeController extends Controller
 
     public function show_rekap_mhs(){
         $mataKuliah = Matakuliah::with('jadwal.absen')->first();
-        $rekapAbseMhs=[];
+        $rekapAbsenMhs=[];
         $alpa=0;
         $izin=0;
         $sakit=0;
-        
+
         foreach($mataKuliah->jadwal as $mahasiswa){
             foreach($mahasiswa->absen as $absenMhs){
                 if($absenMhs->mahasiswa_id == auth()->user()->id){
@@ -53,7 +62,7 @@ class HomeController extends Controller
                         $sakit++;
                     }
                 }
-            }     
+            }
         }
         $rekap=[
             'mata_kuliah'=>$mataKuliah->name_matakuliah,
@@ -62,10 +71,10 @@ class HomeController extends Controller
             'izin'=>$izin,
             'sakit'=>$sakit
         ];
-        
+
         // $rekapAbsen->jadwal->kelaskuliah->mahasiswa->where('mahasiswa_id','=',auth()->id())->get();
 
-        dd($rekap);
+        // dd($rekap);
         return view('pages.mahasiswa.rekap_absen',compact('rekapAbsenMhs'));
     }
 

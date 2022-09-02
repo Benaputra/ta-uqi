@@ -55,7 +55,7 @@
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
                                         <a href="{{ route('dashboard.rekap_absen') }}">
-                                            <button class="form-control btn btn-success">Detail</button>
+                                            <button class="form-control btn btn-success"></button>
                                         </a>
                                     </td>
                                 </tr>

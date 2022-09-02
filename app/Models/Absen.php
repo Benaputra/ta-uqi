@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Absen extends Model
 {
     use HasFactory;
-    protected $table = 'Absens';
-
 
     protected $fillable = [
         'mahasiswa_id',
         'jadwal_id',
         'dosen_id',
         'jam_absen',
+        'pertemuan',
         'tanggal_absen',
         'keterangan'
     ];
@@ -26,6 +25,6 @@ class Absen extends Model
     }
     public function jadwal()
     {
-        return $this->hasMany(Jadwal::class);
+        return $this->belongsTo(Jadwal::class);
     }
 }

@@ -9,7 +9,7 @@ use \Znck\Eloquent\Traits\BelongsToThrough;
 class Jadwal extends Model
 {
     use HasFactory;
-
+    protected $table= 'jadwals';
     protected $guarded = [];
     // protected $fillable = [
     //     'hari',
@@ -22,10 +22,10 @@ class Jadwal extends Model
     //     'prodi_id',
     // ];
 
-    public function matakuliahs()
-    {
-        return $this->belongsToThrough(Matakuliah::class,KelasKuliah::class);
-    }
+    // public function matakuliahs()
+    // {
+    //     return $this->belongsToThrough(Matakuliah::class,KelasKuliah::class);
+    // }
 
     public function matakuliah()
     {
@@ -58,6 +58,10 @@ class Jadwal extends Model
 
     public function kelaskuliah()
     {
-        return $this->belongsTo(KelasKuliah::class);
+        return $this->belongsTo(KelasKuliah::class,'id','jadwal_id');
+    }
+
+    public function absen(){
+        return $this->hasMany(Absen::class);
     }
 }

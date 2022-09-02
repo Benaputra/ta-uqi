@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Matakuliah extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
+    protected $table = 'matakuliahs';
 
     public function prodi()
     {
@@ -23,7 +23,7 @@ class Matakuliah extends Model
 
     public function jadwal()
     {
-        return $this->hasMany(Jadwal::class,'id','matakuliah_id');
+        return $this->hasMany(Jadwal::class,'matakuliah_id','id');
     }
 
     public function kelaskuliah()

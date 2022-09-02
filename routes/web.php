@@ -38,15 +38,17 @@ Route::get('/', function () {
 // Route::get('/dashboard', [HomeController::class,'index'])
 // ->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth'])->prefix('dashboard')->group(function(){
-    Route::get('/', [HomeController::class,'index'])->name('dashboard');
-    Route::get('/show_kelas/{id}', [HomeController::class,'show_kelas'])->name('dashboard_showKelas');
-    Route::post('/save_absen', [HomeController::class,'save_absen'])->name('dashboard.save_absen');
+Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/show_kelas/{id}', [HomeController::class, 'show_kelas'])->name('dashboard_showKelas');
+    Route::get('/show_rekap_mhs', [HomeController::class, 'show_rekap_mhs'])->name('dashboard.rekap_absen');
+    Route::get('/dashboard/detail/{id}', [HomeController::class, 'detail'])->name('dashboard.detail');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
+
 
 
 //Routing Prodi

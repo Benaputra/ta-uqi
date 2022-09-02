@@ -10,7 +10,7 @@ class KelasKuliah extends Model
     use HasFactory;
 
     protected $guarded = [];
-
+    protected $table='kelas_kuliahs';
     public function mahasiswa()
     {
         return $this->hasMany(Mahasiswa::class,'user_id','mahasiswa_id');
@@ -18,7 +18,7 @@ class KelasKuliah extends Model
 
     public function jadwal()
     {
-        return $this->hasMany(Jadwal::class,'id','jadwal_id');
+        return $this->belongsTo(Jadwal::class,'jadwal_id','id');
     }
 
     // public function getMatakuliah()

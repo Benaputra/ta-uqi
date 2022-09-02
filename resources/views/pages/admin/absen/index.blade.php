@@ -22,10 +22,13 @@
                 <table class="table table-striped table-bordered absen_datatable">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>NIM</th>
                             <th>Nama Mahasiswa</th>
+                            <th>Mata Kuliah</th>
                             <th width="180px">Action</th>
                         </tr>
+                        @foreach()
+                        
                     </thead>
                     <tbody></tbody>
                 </table>
@@ -89,23 +92,23 @@
 @endsection
 <script type="text/javascript">
     $(document).ready(function() {
-        var table = $('.absen_datatable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('absen.index') }}",
-            columns: [
-                {data : 'id', name: 'id'},
-                {data : 'mahasiswa_id', name: 'mahasiswa_id'},
-                {data : 'action', name: 'action', orderable: false, searchable: false},
-            ]
-        });
+        // var table = $('.absen_datatable').DataTable({
+        //     processing: true,
+        //     serverSide: true,
+        //     ajax: "{{ route('absen.index') }}",
+        //     columns: [
+        //         {data : 'nim', name: 'id'},
+        //         {data : 'name_mahasiswa', name: 'mahasiswa_id'},
+        //         {data : 'action', name: 'action', orderable: false, searchable: false},
+
+        //     ]
+        // });
 
         $('#create_record').click(function(){
             $('.modal-title').text('Form Tambah Data');
             $('#action_button').val('Add');
             $('#action').val('Add');
             $('#form_result').html('');
-
             $('#formModal').modal('show');
         });
 

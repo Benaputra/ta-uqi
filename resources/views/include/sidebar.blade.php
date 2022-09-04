@@ -90,6 +90,7 @@
             <span>Rekapan Presensi</span></a>
     </li>
     @endrole
+    
     @role('AdminInformatika')
     <li class="nav-item {{ Request::is('admin/mahasiswa*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -139,6 +140,7 @@
             <span>Rekapan Presensi</span></a>
     </li>
     @endrole
+
     @role('AdminElektronika')
     <li class="nav-item {{ Request::is('admin/mahasiswa*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"

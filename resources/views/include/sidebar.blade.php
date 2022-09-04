@@ -28,10 +28,21 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
+    @role('admin')
     <li class="nav-item {{ Request::is('admin/mahasiswa*') ? 'active' : '' }}">
-        <a class="nav-link" href="/admin/mahasiswa">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Mahasiswa</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Mahasiswa</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Program Studi</h6>
+                @foreach (\App\Http\Controllers\MahasiswaController::prodi() as $data)
+                <a class="collapse-item" href="{{url('admin/mahasiswa/'.$data->id)}}">{{$data->name_prodi}}</a>
+                @endforeach
+            </div>
+        </div>
     </li>
     <li class="nav-item {{ Request::is('admin/dosen*') ? 'active' : '' }}">
         <a class="nav-link" href="/admin/dosen">
@@ -42,7 +53,7 @@
         <a class="nav-link" href="/admin/matakuliah">
             <i class="fas fa-book-open"></i>
             <span>Mata Kuliah</span></a>
-</li>
+    </li>
     <li class="nav-item {{ Request::is('admin/prodi*') ? 'active' : '' }}">
         <a class="nav-link" href="/admin/prodi">
             <i class="fas fa-fw fa-table"></i>
@@ -78,7 +89,12 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Presensi</span></a>
     </li>
-
+    <li class="nav-item {{ Request::is('admin/absen*') ? 'active' : '' }}">
+        <a class="nav-link" href="/admin/filter-absen">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Rekapan Presensi</span></a>
+    </li>
+    @endrole
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

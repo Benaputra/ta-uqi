@@ -12,7 +12,7 @@
 
 @section('header-table')
     <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button>
-    <h6 class="m-0 font-weight-bold text-primary">Mahasiswa Tabel</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Tabel Mahasiswa {{$prodi->name_prodi}}</h6>
 @endsection
 
 @section('content')
@@ -70,13 +70,14 @@
                         <div class="form-group">
                             <label>Prodi : </label>
                             <select class="form-select" name="prodi_id" id="prodi_id">
-                                <option value="">Silahkan pilih prodi</option>
-                                @foreach ($prodi as $item)
+                                <option value="" disabled>Silahkan pilih prodi</option>
+                                <option value="{{$prodi->id}}">{{$prodi->name_prodi}}</option>
+                                {{-- @foreach ($prodi as $item)
                                     @if (old('prodi_id') == $item->id)
                                     @else
                                         <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
                                     @endif
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
                         <div class="form-group">
@@ -126,7 +127,7 @@
         var table = $('.mahasiswa_datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('mahasiswa.index') }}",
+            ajax: "{{ route('mahasiswa.index', $prodi->id) }}",
             columns: [{
                     data: 'id',
                     name: 'id'

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\Jadwal;
+use App\Models\Kelas;
 use App\Models\KelasKuliah;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
@@ -13,66 +15,85 @@ use Illuminate\Support\Facades\Validator;
 
 class AbsenController extends Controller
 {
+
+    public function filter(){
+        $kelas = Kelas::all();
+        $matakuliah = Matakuliah::all();
+        return view('pages.admin.absen.filter.index', compact('kelas','matakuliah'));
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function indexMataKuliah(Request $request, $id)
     {
         // $mahasiswa = Mahasiswa::all();
-
-        $mahasiswa = Mahasiswa::with('absen.jadwal')->get();
-        $mata_kuliah=Matakuliah::all();
-        $rekapAbsen=[];
-        foreach($mata_kuliah as $makul){
-            foreach($mahasiswa as $mhs){
-                $hadir=0;
-                $alpa=0;
-                $sakit=0;
-                $izin=0;
-                $absenMakul=[];
-                foreach($mhs->absen as $absen){
-                    if($absen->jadwal->matakuliah_id == $makul->id && $absen->mahasiswa_id == $mhs->id){
-                        if($absen->keterangan == 'hadir'){
-                            $hadir++;
-                        }else if($absen->keterangan == 'alpa'){
-                            $alpa++;
-                        }else if($absen->keterangan == 'sakit'){
-                            $sakit++;
-                        }else if($absen->keterangan == 'izin'){
-                            $izin++;
-                        }   
-                    }
-                }
-                $absenMakul=[
-                    'nama_mahasiswa'=>$mhs->name_mahasiswa,
-                    'mata_kuliah'=>$makul->name_matakuliah,
-                    'makul_id'=>$makul->id,
-                    'hadir'=>$hadir,
-                    'alpa'=>$alpa,
-                    'sakit'=>$sakit,
-                    'izin'=>$izin,
-                ];
-                $rekapAbsen[]=$absenMakul;
-            }
-        }
-        
-        dd($rekapAbsen);
-
-        // if ($request->ajax()) {
-        //     return DataTables::of($mahasiswa)
-        //         ->ediColumn('mata_kuliah', function ($mahasiswa) {
-        //             return $mahasiswa->absen->jadwal->matakuliah->name_matakuliah;
-        //         })
-        //         ->addColumn('action', function ($mahasiswa) {
-        //             return '
-        //             <button type="buton" name="edit" id="' . $mahasiswa->nim . '" class="edit btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i>Edit</button>
-        //             <button type="buton" name="edit" id="' . $mahasiswa->nim . '" class="delete btn btn-danger btn-sm"> <i class="bi bi-backspace-reverse-fill"></i>Delete</button>';
-        //         })
-        //         ->make(true);
+        $matakuliah = Matakuliah::find($id);
+        $jadwal = Jadwal::where('matakuliah_id', $matakuliah->id)->first();
+        $kelas = Kelas::where('id', $jadwal->kelas_id)->first();
+        $mahasiswa = Mahasiswa::where('kelas_id', $kelas->id)->get();
+        $absen = Absen::select('mahasiswa_id')->groupBy('mahasiswa_id')->where('jadwal_id',$jadwal->id)->get();
+        // dd($mahasiswa->first()->absen);
+        // $mata_kuliah=Matakuliah::all();
+        // $rekapAbsen=[];
+        // foreach($mata_kuliah as $makul){
+        //     foreach($mahasiswa as $mhs){
+        //         $hadir=0;
+        //         $alpa=0;
+        //         $sakit=0;
+        //         $izin=0;
+        //         $absenMakul=[];
+        //         foreach($mhs->absen as $absen){
+        //             if($absen->jadwal->matakuliah_id == $makul->id && $absen->mahasiswa_id == $mhs->id){
+        //                 if($absen->keterangan == 'hadir'){
+        //                     $hadir++;
+        //                 }else if($absen->keterangan == 'alpa'){
+        //                     $alpa++;
+        //                 }else if($absen->keterangan == 'sakit'){
+        //                     $sakit++;
+        //                 }else if($absen->keterangan == 'izin'){
+        //                     $izin++;
+        //                 }
+        //             }
+        //         }
+        //         $absenMakul=[
+        //             'nama_mahasiswa'=>$mhs->name_mahasiswa,
+        //             'mata_kuliah'=>$makul->name_matakuliah,
+        //             'makul_id'=>$makul->id,
+        //             'hadir'=>$hadir,
+        //             'alpa'=>$alpa,
+        //             'sakit'=>$sakit,
+        //             'izin'=>$izin,
+        //         ];
+        //         $rekapAbsen[]=$absenMakul;
+        //     }
         // }
-        return view('pages.admin.absen.index', compact('mahasiswa'));
+        // dd($mahasiswa);
+
+        if ($request->ajax()) {
+            return DataTables::of($mahasiswa)
+                ->addIndexColumn()
+                ->addColumn('action', function ($mahasiswa) {
+                    return '
+                    <button type="buton" name="edit" id="' . $mahasiswa->nim . '" class="edit btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i>Edit</button>
+                    <button type="buton" name="edit" id="' . $mahasiswa->nim . '" class="delete btn btn-danger btn-sm"> <i class="bi bi-backspace-reverse-fill"></i>Delete</button>';
+                })
+                ->addColumn('pertemuan', function ($row){
+                    $i = 0;
+                    foreach ($row->absen as $item){
+                        $mataKuliah = $item->jadwal->matakuliah->id;
+                        // dd($i);
+                        $jadwal = Jadwal::where('matakuliah_id', $mataKuliah)->first();
+                        if($jadwal->id == $row->kelas_id){
+                            $i++;
+                        }
+                    }
+                    return $i;
+                })
+                ->make(true);
+        }
+        return view('pages.admin.absen.index', compact('mahasiswa','mataKuliah'));
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Prodi;
 use App\Models\Mahasiswa;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -15,13 +16,23 @@ use Illuminate\Support\Facades\Validator;
 class MahasiswaController extends Controller
 {
 
-    public function index(Request $request)
-    {
+    public static function prodi(){
         $prodi = Prodi::all();
+        return $prodi;
+    }
+
+    public static function kelas(){
+        $kelas = Kelas::all();
+        return $kelas;
+    }
+
+    public function index(Request $request, $id)
+    {
+        $prodi = Prodi::find($id);
         $kelas = Kelas::all();
 
         if ($request->ajax()) {
-            $data = Mahasiswa::select('id','user_id','nim', 'name_mahasiswa', 'kelas_id', 'prodi_id')->get();
+            $data = Mahasiswa::where('prodi_id', $id);
             return DataTables::of($data)
             ->editColumn('kelas_id', function ($data) {
                 return $data->kelas->name_kelas;
@@ -39,7 +50,7 @@ class MahasiswaController extends Controller
             })
             ->make(true);
         }
-        return view('pages.admin.mahasiswa.index', compact('prodi', 'kelas'));
+        return view('pages.admin.mahasiswa.index', compact('prodi','kelas'));
     }
 
     public function store(Request $request)

@@ -23,16 +23,22 @@ class HomeController extends Controller
         //         }
         //     }
         // }
-        $getKelasMhs = KelasKuliah::with('jadwal.matakuliah', 'mahasiswa')
-            ->where('mahasiswa_id', '=', auth()->user()->id)
-            ->get();
 
+
+        // return $getMhs->toJson();
+        return view ('pages.admin.dashboard.index');
+    }
+    public function getDosen(){
         $getKelasDosen = Jadwal::with('dosen', 'matakuliah', 'kelas', 'ruangan', 'semester', 'prodi')
             ->where('dosen_id', '=', auth()->id())
             ->get();
-
-        // return $getMhs->toJson();
-        return view ('dashboard', compact('getKelasMhs', 'getKelasDosen'));
+        return view('dashboard',compact('getKelasDosen'));
+    }
+    public function getMahasiswa(){
+        $getKelasMhs = KelasKuliah::with('jadwal.matakuliah', 'mahasiswa')
+            ->where('mahasiswa_id', '=', auth()->user()->id)
+            ->get();
+        return view('dashboard',compact('getKelasMhs'));
     }
 
     public function show_kelas($id){

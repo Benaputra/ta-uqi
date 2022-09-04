@@ -11,27 +11,28 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('header-table')
-    <h6 class="m-0 font-weight-bold text-primary">Rekapan Absen</h6>
+    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button>
+    <h6 class="m-0 font-weight-bold text-primary">Mahasiswa Tabel</h6>
 @endsection
 
 @section('content')
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Kelas</h1>
+    <h1 class="h3 mb-0 text-gray-800">Mata Kuliah</h1>
 </div>
 
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->
-    @foreach ($kelas as $data)
+    @foreach ($matakuliah as $data)
     <div class="col-xl-3 col-md-6 mb-4">
-        <a href="{{route('absen.index',$data->id)}}">
+        <a href="{{route('absen.matakuliah.index',$data->id)}}">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Kelas {{$data->name_kelas}}</div>
+                            {{$data->name_matakuliah}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>

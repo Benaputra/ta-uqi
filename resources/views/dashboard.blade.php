@@ -23,6 +23,7 @@
     <div class="">
         <div class="row">
             <div class="col-12 table-responsive bdr">
+                
                 @role('mahasiswa')
                     <table
                         class="table table-striped">

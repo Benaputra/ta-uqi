@@ -121,25 +121,89 @@
                                 <div class="form-group">
                                     <label>Ruangan : </label>
                                     <select class="form-select" name="ruangan_id" id="ruangan_id">
-                                        <option value="">Silahkan pilih prodi</option>
+                                        <option value="">Silahkan pilih ruangan</option>
+                                        @role('admin')
                                         @foreach ($ruangan as $item)
                                             @if (old('ruangan_id') == $item->id)
                                             @else
                                                 <option value="{{ $item->id }}">{{ $item->name_ruangan }}</option>
                                             @endif
                                         @endforeach
+                                        @endrole
+                                        @role('AdminInformatika')
+                                        @foreach ($ruangan as $item)
+                                            @if (old('ruangan_id') == $item->id)
+                                            @else
+                                                @if ($item->prodi->name_prodi == 'Teknik Informatika')
+                                                    <option value="{{ $item->id }}">{{ $item->name_ruangan }}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        @endrole
+                                        @role('AdminElektronika')
+                                        @foreach ($ruangan as $item)
+                                            @if (old('ruangan_id') == $item->id)
+                                            @else
+                                                @if ($item->prodi->name_prodi == 'Teknik Elektronika')
+                                                    <option value="{{ $item->id }}">{{ $item->name_ruangan }}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        @endrole
+                                        @role('AdminListrik')
+                                        @foreach ($ruangan as $item)
+                                            @if (old('ruangan_id') == $item->id)
+                                            @else
+                                                @if ($item->prodi->name_prodi == 'Teknik Listrik')
+                                                    <option value="{{ $item->id }}">{{ $item->name_ruangan }}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        @endrole
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Prodi : </label>
                                     <select class="form-select" name="prodi_id" id="prodi_id">
                                         <option value="">Silahkan pilih prodi</option>
+                                        @role('admin')
                                         @foreach ($prodi as $item)
                                             @if (old('prodi_id') == $item->id)
                                             @else
                                                 <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
                                             @endif
                                         @endforeach
+                                        @endrole
+                                        @role('AdminInformatika')
+                                        @foreach ($prodi as $item)
+                                            @if (old('prodi_id') == $item->id)
+                                            @else
+                                                @if ($item->name_prodi == 'Teknik Informatika')
+                                                    <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        @endrole
+                                        @role('AdminElektrotika')
+                                        @foreach ($prodi as $item)
+                                            @if (old('prodi_id') == $item->id)
+                                            @else
+                                                @if ($item->name_prodi == 'Teknik Elektrotika')
+                                                    <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        @endrole
+                                        @role('AdminListrik')
+                                        @foreach ($prodi as $item)
+                                            @if (old('prodi_id') == $item->id)
+                                            @else
+                                                @if ($item->name_prodi == 'Teknik Listrik')
+                                                    <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        @endrole
                                     </select>
                                 </div>
                                 <input type="hidden" name="action" id="action" value="Add" />

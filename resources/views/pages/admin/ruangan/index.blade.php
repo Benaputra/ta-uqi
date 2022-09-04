@@ -51,12 +51,44 @@
                             <label>Prodi : </label>
                             <select class="form-select" name="prodi_id" id="prodi_id">
                                 <option value="">Silahkan pilih prodi</option>
+                                @role('admin')
                                 @foreach ($prodi as $item)
                                     @if (old('prodi_id') == $item->id)
                                     @else
                                         <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
                                     @endif
                                 @endforeach
+                                @endrole
+                                @role('AdminInformatika')
+                                @foreach ($prodi as $item)
+                                    @if (old('prodi_id') == $item->id)
+                                    @else
+                                        @if ($item->name_prodi == 'Teknik Informatika')
+                                            <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
+                                        @endif
+                                    @endif
+                                @endforeach
+                                @endrole
+                                @role('AdminElektronika')
+                                @foreach ($prodi as $item)
+                                    @if (old('prodi_id') == $item->id)
+                                    @else
+                                        @if ($item->name_prodi == 'Teknik Elektronika')
+                                            <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
+                                        @endif
+                                    @endif
+                                @endforeach
+                                @endrole
+                                @role('AdminListrik')
+                                @foreach ($prodi as $item)
+                                    @if (old('prodi_id') == $item->id)
+                                    @else
+                                        @if ($item->name_prodi == 'Teknik Listrik')
+                                            <option value="{{ $item->id }}">{{ $item->name_prodi }}</option>
+                                        @endif
+                                    @endif
+                                @endforeach
+                                @endrole
                             </select>
                         </div>
                         <input type="hidden" name="action" id="action" value="Add" />

@@ -11,7 +11,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('header-table')
-    <h6 class="m-0 font-weight-bold text-primary">Tabel Rekapan Absen Mata Kuliah Kelas {{$kelas->name_kelas}}</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Tabel Rekapan Absen Mata Kuliah {{$jadwal->matakuliah->name_matakuliah}}</h6>
 @endsection
 
 @section('content')
@@ -21,14 +21,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Mata Kuliah</th>
                         <th>NIM</th>
                         <th>Nama Mahasiswa</th>
-                        <th>Hadir</th>
-                        <th>Sakit</th>
-                        <th>Izin</th>
-                        <th>Alpa</th>
-                        <th width="180px">Total Hadir</th>
+                        <th>Pertemuan</th>
+                        <th>Keterangan</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -41,42 +37,25 @@
         var table = $('.mahasiswa_datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('absen.index', $kelas->id) }}",
+            ajax: "{{ route('absen.index', $jadwal->id) }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-                {
-                    data: 'matakuliah',
-                    name: 'matakuliah'
-                },
+
                 {
                     data: 'nim',
                     name: 'nim'
                 },
                 {
-                    data: 'name_mahasiswa',
-                    name: 'name_mahasiswa'
+                    data: 'mahasiswa_id',
+                    name: 'mahasiswa_id'
                 },
                 {
                     data: 'pertemuan',
                     name: 'pertemuan'
                 },
                 {
-                    data: 'sakit',
-                    name: 'sakit'
-                },
-                {
-                    data: 'izin',
-                    name: 'izin'
-                },
-                {
-                    data: 'alpa',
-                    name: 'alpa'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
+                    data: 'keterangan',
+                    name: 'keterangan'
                 },
             ]
         });

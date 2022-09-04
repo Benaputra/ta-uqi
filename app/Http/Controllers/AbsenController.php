@@ -17,8 +17,12 @@ class AbsenController extends Controller
 {
 
     public function filter(){
-        $kelas = Kelas::all();
-        return view('pages.admin.absen.filter.index', compact('kelas'));
+        $matakuliah = Matakuliah::all();
+        return view('pages.admin.absen.filter.index', compact('matakuliah'));
+    }
+    public function jadwal($id){
+        $jadwal = Jadwal::where('matakuliah_id',$id)->get();
+        return view('pages.admin.absen.jadwal.index', compact('jadwal'));
     }
     /**
      * Display a listing of the resource.
@@ -27,8 +31,10 @@ class AbsenController extends Controller
      */
     public function index(Request $request, $id)
     {
-        $kelas = Kelas::find($id);
-        $mahasiswa = Mahasiswa::where('kelas_id', $kelas->id)->get();
+        $jadwal = Jadwal::find($id);
+        // $mahasiswa = Mahasiswa::with('kelaskuliah')->where('kelas_id', $jadwal->kelas)->get();
+
+        // dd($mahasiswa);
         // dd($mahasiswa->jadwal);
         // $mata_kuliah=Matakuliah::all();
         // $rekapAbsen=[];
@@ -65,65 +71,29 @@ class AbsenController extends Controller
         //     }
         // }
         // dd($mahasiswa);
+        $absen = Absen::where('jadwal_id', $jadwal->id)->get();
         if ($request->ajax()) {
-            return DataTables::of($mahasiswa)
+            return DataTables::of($absen)
                 ->addIndexColumn()
-                ->addColumn('matakuliah',function($row){
-                    $makul = '';
-                    foreach($row->absen as $item){
-                        return $item->jadwal->matakuliah->name_matakuliah;
+                ->editColumn('mahasiswa_id', function ($row){
+                    return $row->mahasiswa->name_mahasiswa;
+                })
+                ->addColumn('nim', function ($row){
+                    return $row->mahasiswa->nim;
+                })
+                ->addColumn('kehadiran', function ($row){
+                    if($row->pertemuan =! null){
+                        $data = 'Pertemuan '.$row->pertemuan;
+                        return $data;
+                    }
+                    else{
+                        return 'Tidak Hadir';
                     }
                 })
-                ->addColumn('action', function ($row) {
-                    $i=0;
-                    // dd($jadwal->id);
-                    foreach ($row->absen as $item){
-                        if(($item->keterangan == 'Hadir' || $item->keterangan == 'Sakit' || $item->keterangan == 'Izin') ){
-                            $i++;
-                        }
-                    }
-                    return $i;
-                })
-                ->addColumn('pertemuan', function ($row){
-                    $i=0;
-                    // dd($row->jadwal);
-                    foreach ($row->absen as $item){
-                        if($item->keterangan == 'Hadir'){
-                            $i++;
-                        }
-                    }
-                    return $i;
-                })
-                ->addColumn('sakit', function ($row){
-                    $i=0;
-                    foreach ($row->absen as $item){
-                        if($item->keterangan == 'Sakit'){
-                            $i++;
-                        }
-                    }
-                    return $i;
-                })
-                ->addColumn('izin', function ($row){
-                    $i=0;
-                    foreach ($row->absen as $item){
-                        if($item->keterangan == 'Izin'){
-                            $i++;
-                        }
-                    }
-                    return $i;
-                })
-                ->addColumn('alpa', function ($row){
-                    $i=0;
-                    foreach ($row->absen as $item){
-                        if($item->keterangan == 'Absen'){
-                            $i++;
-                        }
-                    }
-                    return $i;
-                })
+                
                 ->make(true);
         }
-        return view('pages.admin.absen.index', compact('mahasiswa','kelas'));
+        return view('pages.admin.absen.index', compact('jadwal'));
     }
 
     /**

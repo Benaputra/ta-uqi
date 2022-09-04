@@ -41,7 +41,8 @@ Route::get('/', function () {
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/show_kelas/{id}', [HomeController::class, 'show_kelas'])->name('dashboard_showKelas');
-    Route::get('/show_rekap_mhs', [HomeController::class, 'show_rekap_mhs'])->name('dashboard.rekap_absen');
+    Route::get('/show_rekap_mhs/{id}', [HomeController::class, 'show_rekap_mhs'])->name('dashboard.rekap_absen');
+    Route::get('/show_rekap_dsn/{id}', [HomeController::class, 'show_rekap_dsn'])->name('dashboard.rekap_absen');
     Route::get('/dashboard/detail/{id}', [HomeController::class, 'detail'])->name('dashboard.detail');
 });
 
@@ -73,7 +74,8 @@ Route::post('/admin/semester/update', [SemesterController::class, 'update'])->na
 Route::get('/admin/semester/destroy/{id}/', [SemesterController::class, 'destroy']);
 
 //Routing Mahasiswa
-Route::get('/admin/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
+// Route::get('/admin/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
+Route::get('/admin/mahasiswa/{id}', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
 Route::post('/admin/mahasiswa', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
 Route::get('/admin/mahasiswa/edit/{id}', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
 Route::post('/admin/mahasiswa/update', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
@@ -108,7 +110,8 @@ Route::post('/admin/jadwal/update', [JadwalController::class, 'update'])->name('
 Route::get('/admin/jadwal/destroy/{id}/', [JadwalController::class, 'destroy'])->name('jadwal.destroy');
 
 //Route Absen
-Route::get('/admin/absen', [AbsenController::class, 'index'])->name('absen.index');
+Route::get('/admin/filter-absen', [AbsenController::class, 'filter']);
+Route::get('/admin/absen/matakuliah/{id}', [AbsenController::class, 'indexMataKuliah'])->name('absen.matakuliah.index');
 Route::post('/admin/absen', [AbsenController::class, 'store'])->name('absen.store');
 Route::get('/admin/absen/edit/{id}', [AbsenController::class, 'edit'])->name('absen.edit');
 Route::post('/admin/absen/update', [AbsenController::class, 'update'])->name('absen.update');

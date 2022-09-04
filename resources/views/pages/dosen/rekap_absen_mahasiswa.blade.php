@@ -16,13 +16,16 @@
             <div class="col-12 table-responsive bdr">
                 <form method="POST" action="{{ route('absen.store') }}">
                     <table class="table table-striped">
+                        <h3>
+                           Matakuliah {{$jadwal->matakuliah->name_matakuliah}} Kelas {{$jadwal->kelas->name_kelas}}
+                        </h3>
                         <thead class="">
                             <tr>
                                 <th scope="col" class=" border border-slate-600 py-3 px-6">
                                     No
                                 </th>
                                 <th scope="col" class="border border-slate-600 py-3 px-6">
-                                    Nama Matakuliah
+                                    Nama Mahasiswa
                                 </th>
                                 <th scope="col" class="border border-slate-600 py-3 px-6">
                                     Pertemuan
@@ -39,7 +42,7 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <td class=" border border-slate-700 py-4 px-6">
-                                        {{ $item->jadwal->matakuliah->name_matakuliah }}
+                                        {{ $item->mahasiswa[0]->name_mahasiswa }}
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
                                         {{ $item->pertemuan }}

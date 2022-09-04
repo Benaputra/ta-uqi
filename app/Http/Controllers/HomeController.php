@@ -38,44 +38,22 @@ class HomeController extends Controller
     public function show_kelas($id){
         $kelasByMhs = KelasKuliah::with(['jadwal','mahasiswa'])
         ->where('jadwal_id','=', $id)->get();
-
+        $absen = Absen::where('jadwal_id', $kelasByMhs->first()->jadwal_id)->orderBy('pertemuan','DESC')->first();
+        // dd($absen);
         // return $kelasByMhs->toJson();
-        return view('pages.dosen.detail_kelas', compact('kelasByMhs'));
+        return view('pages.dosen.detail', compact('kelasByMhs','absen'));
     }
 
-    public function show_rekap_mhs(){
-        $mataKuliah = Matakuliah::with('jadwal.absen')->first();
-        $rekapAbsenMhs=[];
-        $alpa=0;
-        $izin=0;
-        $sakit=0;
+    public function show_rekap_dsn($id){
+        $absen = Absen::where('jadwal_id',$id)->get();
+        $jadwal = Jadwal::where('id',$id)->first();
+        return view('pages.dosen.rekap_absen_mahasiswa',compact('absen','jadwal'));
 
-        foreach($mataKuliah->jadwal as $mahasiswa){
-            foreach($mahasiswa->absen as $absenMhs){
-                if($absenMhs->mahasiswa_id == auth()->user()->id){
-                    $rekapAbsenMhs[] = $absenMhs;
-                    if($absenMhs->keterangan == 'alpa'){
-                        $alpa++;
-                    }else if($absenMhs->keterangan == 'izin'){
-                        $izin++;
-                    }else if($absenMhs->keterangan == 'sakit'){
-                        $sakit++;
-                    }
-                }
-            }
-        }
-        $rekap=[
-            'mata_kuliah'=>$mataKuliah->name_matakuliah,
-            'rekap_absen'=>$rekapAbsenMhs,
-            'alpa'=>$alpa,
-            'izin'=>$izin,
-            'sakit'=>$sakit
-        ];
+    }
 
-        // $rekapAbsen->jadwal->kelaskuliah->mahasiswa->where('mahasiswa_id','=',auth()->id())->get();
-
-        // dd($rekap);
-        return view('pages.mahasiswa.rekap_absen',compact('rekapAbsenMhs'));
+    public function show_rekap_mhs($id){
+        $absen = Absen::where('jadwal_id',$id)->where('mahasiswa_id', auth()->user()->mahasiswa->id)->get();
+        return view('pages.mahasiswa.rekap_absen',compact('absen'));
     }
 
     public function detail($id)

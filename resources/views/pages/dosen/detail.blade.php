@@ -49,7 +49,7 @@
                                     <input type="text" class="form-control" name="pertemuan" id="pertemuan">
                                 </div>
                             </div>
-                            @foreach ($kelasByMhs as $items)
+                            @forelse ($kelasByMhs as $items)
                                 <tr class="">
                                     <td class="py-4 px-6">
                                         {{ $loop->iteration }}
@@ -83,7 +83,9 @@
                                                 value="{{ auth()->id() }}">
                                     </td>
                                 </tr>
-                            @endforeach
+                                @empty
+                                <H1>Data Kosong</H1>
+                            @endforelse
                             <input type="hidden" name="jadwal_id" value="{{ $items->jadwal_id }}">
                         </tbody>
                     </table>

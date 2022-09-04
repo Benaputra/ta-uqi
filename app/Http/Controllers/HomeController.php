@@ -26,40 +26,40 @@ class HomeController extends Controller
 
 
         // return $getMhs->toJson();
-        return view ('pages.admin.dashboard.index');
+        return view('pages.admin.dashboard.index');
     }
-    public function getDosen(){
-        $getKelasDosen = Jadwal::with('dosen', 'matakuliah', 'kelas', 'ruangan', 'semester', 'prodi')
-            ->where('dosen_id', '=', auth()->id())
-            ->get();
-        return view('dashboard',compact('getKelasDosen'));
-    }
-    public function getMahasiswa(){
+    public function getAll()
+    {
         $getKelasMhs = KelasKuliah::with('jadwal.matakuliah', 'mahasiswa')
             ->where('mahasiswa_id', '=', auth()->user()->id)
             ->get();
-        return view('dashboard',compact('getKelasMhs'));
+        $getKelasDosen = Jadwal::with('dosen', 'matakuliah', 'kelas', 'ruangan', 'semester', 'prodi')
+            ->where('dosen_id', '=', auth()->id())
+            ->get();
+        return view('dashboard', compact('getKelasMhs','getKelasDosen'));
     }
 
-    public function show_kelas($id){
-        $kelasByMhs = KelasKuliah::with(['jadwal','mahasiswa'])
-        ->where('jadwal_id','=', $id)->get();
-        $absen = Absen::where('jadwal_id', $kelasByMhs->first()->jadwal_id)->orderBy('pertemuan','DESC')->first();
+    public function show_kelas($id)
+    {
+        $kelasByMhs = KelasKuliah::with(['jadwal', 'mahasiswa'])
+            ->where('jadwal_id', '=', $id)->get();
+        $absen = Absen::where('jadwal_id', $kelasByMhs->first()->jadwal_id)->orderBy('pertemuan', 'DESC')->first();
         // dd($absen);
         // return $kelasByMhs->toJson();
-        return view('pages.dosen.detail', compact('kelasByMhs','absen'));
+        return view('pages.dosen.detail', compact('kelasByMhs', 'absen'));
     }
 
-    public function show_rekap_dsn($id){
-        $absen = Absen::where('jadwal_id',$id)->get();
-        $jadwal = Jadwal::where('id',$id)->first();
-        return view('pages.dosen.rekap_absen_mahasiswa',compact('absen','jadwal'));
-
+    public function show_rekap_dsn($id)
+    {
+        $absen = Absen::where('jadwal_id', $id)->get();
+        $jadwal = Jadwal::where('id', $id)->first();
+        return view('pages.dosen.rekap_absen_mahasiswa', compact('absen', 'jadwal'));
     }
 
-    public function show_rekap_mhs($id){
-        $absen = Absen::where('jadwal_id',$id)->where('mahasiswa_id', auth()->user()->mahasiswa->id)->get();
-        return view('pages.mahasiswa.rekap_absen',compact('absen'));
+    public function show_rekap_mhs($id)
+    {
+        $absen = Absen::where('jadwal_id', $id)->where('mahasiswa_id', auth()->user()->mahasiswa->id)->get();
+        return view('pages.mahasiswa.rekap_absen', compact('absen'));
     }
 
     public function detail($id)

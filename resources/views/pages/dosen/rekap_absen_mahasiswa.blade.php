@@ -42,7 +42,7 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <td class=" border border-slate-700 py-4 px-6">
-                                        {{ $item->mahasiswa[0]->name_mahasiswa }}
+                                        {{ $item->mahasiswa->name_mahasiswa }}
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
                                         {{ $item->pertemuan }}

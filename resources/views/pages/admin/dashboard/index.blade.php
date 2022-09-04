@@ -110,7 +110,7 @@
 
                         @role('dosen')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{{url('/dashboard/dosen')}}}" >
+                            <a class="nav-link" href="{{{url('/dashboard/rekap-absen')}}}" >
                             <i class="material-icons">task</i>
                                 Rekapan Presensi
                             </a>
@@ -118,7 +118,7 @@
                         @endrole
                         @role('mahasiswa')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{{url('/dashboard/mahasiswa')}}}" >
+                            <a class="nav-link" href="{{{url('/dashboard/rekap-absen')}}}" >
                             <i class="material-icons">task</i>
                                 Rekapan Presensi
                             </a>

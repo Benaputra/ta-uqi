@@ -40,8 +40,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/dosen', [HomeController::class, 'getDosen'])->name('dashboard');
-    Route::get('/mahasiswa', [HomeController::class, 'getMahasiswa'])->name('dashboard');
+    Route::get('/rekap-absen', [HomeController::class, 'getAll'])->name('dashboard.rekap_absen');
     Route::get('/show_kelas/{id}', [HomeController::class, 'show_kelas'])->name('dashboard_showKelas');
     Route::get('/show_rekap_mhs/{id}', [HomeController::class, 'show_rekap_mhs'])->name('dashboard.rekap_absen');
     Route::get('/show_rekap_dsn/{id}', [HomeController::class, 'show_rekap_dsn'])->name('dashboard.rekap_absen');

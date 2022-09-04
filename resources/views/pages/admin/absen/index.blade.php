@@ -11,7 +11,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('header-table')
-    <h6 class="m-0 font-weight-bold text-primary">Tabel Rekapan Absen Mata Kuliah {{$mataKuliah->name_matakuliah}}</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Tabel Rekapan Absen Mata Kuliah {{$jadwal->matakuliah->name_matakuliah}}</h6>
 @endsection
 
 @section('content')
@@ -23,11 +23,11 @@
                         <th>No</th>
                         <th>NIM</th>
                         <th>Nama Mahasiswa</th>
-                        <th>Pertemuan</th>
+                        <th>Hadir</th>
                         <th>Sakit</th>
                         <th>Izin</th>
                         <th>Alpa</th>
-                        <th width="180px">Action</th>
+                        <th width="180px">Total Hadir</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -40,7 +40,7 @@
         var table = $('.mahasiswa_datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('absen.matakuliah.index', $mataKuliah->id) }}",
+            ajax: "{{ route('absen.index', $jadwal->id) }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 {
@@ -56,12 +56,16 @@
                     name: 'pertemuan'
                 },
                 {
-                    data: 'prodi_id',
-                    name: 'prodi_id'
+                    data: 'sakit',
+                    name: 'sakit'
                 },
                 {
-                    data: 'email',
-                    name: 'email'
+                    data: 'izin',
+                    name: 'izin'
+                },
+                {
+                    data: 'alpa',
+                    name: 'alpa'
                 },
                 {
                     data: 'action',

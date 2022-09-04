@@ -17,24 +17,23 @@ class AbsenController extends Controller
 {
 
     public function filter(){
-        $kelas = Kelas::all();
         $matakuliah = Matakuliah::all();
-        return view('pages.admin.absen.filter.index', compact('kelas','matakuliah'));
+        return view('pages.admin.absen.filter.index', compact('matakuliah'));
+    }
+    public function jadwal($id){
+        $jadwal = Jadwal::where('matakuliah_id',$id)->get();
+        return view('pages.admin.absen.jadwal.index', compact('jadwal'));
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexMataKuliah(Request $request, $id)
+    public function index(Request $request, $id)
     {
-        // $mahasiswa = Mahasiswa::all();
-        $matakuliah = Matakuliah::find($id);
-        $jadwal = Jadwal::where('matakuliah_id', $matakuliah->id)->first();
-        $kelas = Kelas::where('id', $jadwal->kelas_id)->first();
-        $mahasiswa = Mahasiswa::where('kelas_id', $kelas->id)->get();
-        $absen = Absen::select('mahasiswa_id')->groupBy('mahasiswa_id')->where('jadwal_id',$jadwal->id)->get();
-        // dd($mahasiswa->first()->absen);
+        $jadwal = Jadwal::find($id);
+        $mahasiswa = Mahasiswa::where('kelas_id', $jadwal->kelas_id)->get();
+        // dd($jadwal);
         // $mata_kuliah=Matakuliah::all();
         // $rekapAbsen=[];
         // foreach($mata_kuliah as $makul){
@@ -74,18 +73,46 @@ class AbsenController extends Controller
         if ($request->ajax()) {
             return DataTables::of($mahasiswa)
                 ->addIndexColumn()
-                ->addColumn('action', function ($mahasiswa) {
-                    return '
-                    <button type="buton" name="edit" id="' . $mahasiswa->nim . '" class="edit btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i>Edit</button>
-                    <button type="buton" name="edit" id="' . $mahasiswa->nim . '" class="delete btn btn-danger btn-sm"> <i class="bi bi-backspace-reverse-fill"></i>Delete</button>';
+                ->addColumn('action', function ($row) {
+                    $i=0;
+                    foreach ($row->absen as $item){
+                        if($item->keterangan == 'Hadir' || $item->keterangan == 'Sakit' || $item->keterangan == 'Izin' ){
+                            $i++;
+                        }
+                    }
+                    return $i;
                 })
                 ->addColumn('pertemuan', function ($row){
-                    $i = 0;
+                    $i=0;
                     foreach ($row->absen as $item){
-                        $mataKuliah = $item->jadwal->matakuliah->id;
-                        // dd($i);
-                        $jadwal = Jadwal::where('matakuliah_id', $mataKuliah)->first();
-                        if($jadwal->id == $row->kelas_id){
+                        if($item->keterangan == 'Hadir'){
+                            $i++;
+                        }
+                    }
+                    return $i;
+                })
+                ->addColumn('sakit', function ($row){
+                    $i=0;
+                    foreach ($row->absen as $item){
+                        if($item->keterangan == 'Sakit'){
+                            $i++;
+                        }
+                    }
+                    return $i;
+                })
+                ->addColumn('izin', function ($row){
+                    $i=0;
+                    foreach ($row->absen as $item){
+                        if($item->keterangan == 'Izin'){
+                            $i++;
+                        }
+                    }
+                    return $i;
+                })
+                ->addColumn('alpa', function ($row){
+                    $i=0;
+                    foreach ($row->absen as $item){
+                        if($item->keterangan == 'Absen'){
                             $i++;
                         }
                     }
@@ -93,7 +120,7 @@ class AbsenController extends Controller
                 })
                 ->make(true);
         }
-        return view('pages.admin.absen.index', compact('mahasiswa','mataKuliah'));
+        return view('pages.admin.absen.index', compact('mahasiswa','jadwal'));
     }
 
     /**

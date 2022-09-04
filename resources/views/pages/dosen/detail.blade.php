@@ -43,7 +43,7 @@
                             </select> --}}
                             <div class="row">
                                 <div class="col-4">
-                                    Pertemuan Terakhir {{$absen->pertemuan}}
+                                    Pertemuan Terakhir {{$absen ? $absen->pertemuan : '0'}}
                                 </div>
                                 <div class="col-2">
                                     <input type="text" class="form-control" name="pertemuan" id="pertemuan">

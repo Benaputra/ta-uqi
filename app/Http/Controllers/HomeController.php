@@ -14,8 +14,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $getMhs = KelasKuliah::with('mahasiswa.user')->get();
-
+        // $getMhs = KelasKuliah::with('mahasiswa')->get();
+        // dd($getMhs);
         // foreach ($getMhs as $mhs) {
         //     foreach ($mhs as $authMhs) {
         //         if($authMhs  == auth()->id()){

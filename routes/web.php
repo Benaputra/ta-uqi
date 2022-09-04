@@ -111,7 +111,6 @@ Route::get('/admin/jadwal/destroy/{id}/', [JadwalController::class, 'destroy'])-
 
 //Route Absen
 Route::get('/admin/filter-absen', [AbsenController::class, 'filter']);
-Route::get('/admin/absen/matakuliah/{id}', [AbsenController::class, 'jadwal'])->name('absen.matakuliah.index');
 Route::get('/admin/absen/{id}', [AbsenController::class, 'index'])->name('absen.index');
 Route::post('/admin/absen', [AbsenController::class, 'store'])->name('absen.store');
 Route::get('/admin/absen/edit/{id}', [AbsenController::class, 'edit'])->name('absen.edit');

@@ -26,19 +26,14 @@ class Mahasiswa extends Model
         return $this->belongsTo(Kelas::class);
     }
 
-    public function jadwal()
-    {
-        return $this->hasMany(Jadwal::class);
-    }
-
     public function absen()
     {
         return $this->hasMany(Absen::class, 'mahasiswa_id', 'id');
     }
 
-    public function kelaskuliah()
+    public function jadwal()
     {
-        return $this->belongsTo(Kelaskuliah::class);
+        return $this->belongsToMany(Jadwal::class,'kelas_kuliahs');
     }
     public function jadwalMhs()
     {

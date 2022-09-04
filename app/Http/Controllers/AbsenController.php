@@ -17,12 +17,8 @@ class AbsenController extends Controller
 {
 
     public function filter(){
-        $matakuliah = Matakuliah::all();
-        return view('pages.admin.absen.filter.index', compact('matakuliah'));
-    }
-    public function jadwal($id){
-        $jadwal = Jadwal::where('matakuliah_id',$id)->get();
-        return view('pages.admin.absen.jadwal.index', compact('jadwal'));
+        $kelas = Kelas::all();
+        return view('pages.admin.absen.filter.index', compact('kelas'));
     }
     /**
      * Display a listing of the resource.
@@ -31,9 +27,9 @@ class AbsenController extends Controller
      */
     public function index(Request $request, $id)
     {
-        $jadwal = Jadwal::find($id);
-        $mahasiswa = Mahasiswa::where('kelas_id', $jadwal->kelas_id)->get();
-        // dd($jadwal);
+        $kelas = Kelas::find($id);
+        $mahasiswa = Mahasiswa::where('kelas_id', $kelas->id)->get();
+        // dd($mahasiswa->jadwal);
         // $mata_kuliah=Matakuliah::all();
         // $rekapAbsen=[];
         // foreach($mata_kuliah as $makul){
@@ -69,14 +65,20 @@ class AbsenController extends Controller
         //     }
         // }
         // dd($mahasiswa);
-
         if ($request->ajax()) {
             return DataTables::of($mahasiswa)
                 ->addIndexColumn()
+                ->addColumn('matakuliah',function($row){
+                    $makul = '';
+                    foreach($row->absen as $item){
+                        return $item->jadwal->matakuliah->name_matakuliah;
+                    }
+                })
                 ->addColumn('action', function ($row) {
                     $i=0;
+                    // dd($jadwal->id);
                     foreach ($row->absen as $item){
-                        if($item->keterangan == 'Hadir' || $item->keterangan == 'Sakit' || $item->keterangan == 'Izin' ){
+                        if(($item->keterangan == 'Hadir' || $item->keterangan == 'Sakit' || $item->keterangan == 'Izin') ){
                             $i++;
                         }
                     }
@@ -84,6 +86,7 @@ class AbsenController extends Controller
                 })
                 ->addColumn('pertemuan', function ($row){
                     $i=0;
+                    // dd($row->jadwal);
                     foreach ($row->absen as $item){
                         if($item->keterangan == 'Hadir'){
                             $i++;
@@ -120,7 +123,7 @@ class AbsenController extends Controller
                 })
                 ->make(true);
         }
-        return view('pages.admin.absen.index', compact('mahasiswa','jadwal'));
+        return view('pages.admin.absen.index', compact('mahasiswa','kelas'));
     }
 
     /**

@@ -56,9 +56,9 @@ class Jadwal extends Model
         return $this->belongsTo(Kelas::class,'kelas_id','id');
     }
 
-    public function kelaskuliah()
+    public function mahasiswa()
     {
-        return $this->belongsTo(KelasKuliah::class,'id','jadwal_id');
+        return $this->belongsToMany(Mahasiswa::class, 'kelas_kuliahs');
     }
 
     public function absen(){

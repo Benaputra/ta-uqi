@@ -28,7 +28,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Mahasiswa</th>
-                            <th>Jadwal Hari</th>
+                            <th>Hari Jadwal</th>
+                            <th>Mata Kuliah</th>
                             <th width="180px">Action</th>
                         </tr>
                     </thead>
@@ -62,11 +63,23 @@
                         <div class="form-group">
                             <label>Jadwal : </label>
                             <select class="form-select" name="jadwal_id" id="jadwal_id">
-                                <option value="">Silahkan pilih matakuliah</option>
+                                <option value="">Silahkan pilih hari</option>
                                 @foreach ($jadwal as $item)
                                     @if (old('jadwal_id') == $item->id)
                                     @else
                                         <option value="{{ $item->id }}">{{ $item->hari }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Matakuliah : </label>
+                            <select class="form-select" name="matakuliah_id" id="matakuliah_id">
+                                <option value="">Silahkan pilih matakuliah</option>
+                                @foreach ($matakuliah as $item)
+                                    @if (old('matakuliah_id') == $item->id)
+                                    @else
+                                        <option value="{{ $item->id }}">{{ $item->name_matakuliah }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -114,6 +127,7 @@
                 {data : 'id', name: 'id'},
                 {data : 'mahasiswa_id', name: 'mahasiswa_id'},
                 {data : 'jadwal_id', name: 'jadwal_id'},
+                {data : 'matakuliah_id', name: 'matakuliah_id'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
@@ -189,6 +203,7 @@
                     console.log('success: '+data);
                     $('#mahasiswa_id').val(data.result.mahasiswa_id);
                     $('#jadwal_id').val(data.result.jadwal_id);
+                    $('#matakuliah_id').val(data.result.matakuliah_id);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');
                     $('#action_button').val('Update');

@@ -77,7 +77,10 @@
                                                 name="keterangan{{ $items->id }}" value="Sakit">
                                             <label class="radio-inline" for="">Izin</label>
                                             <input class=" {{ $items->id }}" type="radio"
-                                                name="keterangan{{ $items->id }}" value="Absen">
+                                                name="keterangan{{ $items->id }}" value="Izin">
+                                            <label class="radio-inline" for="">Alpa</label>
+                                            <input class=" {{ $items->id }}" type="radio"
+                                                name="keterangan{{ $items->id }}" value="Alpa">
                                             <input type="hidden" name="mahasiswa_id{{ $items->id }}"
                                                 value="{{ $items->mahasiswa->first()->id }}">
                                             <input type="hidden" name="dosen_id{{ $items->id }}"

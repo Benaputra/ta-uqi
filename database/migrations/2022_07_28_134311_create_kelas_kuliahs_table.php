@@ -18,9 +18,11 @@ return new class extends Migration
 
             $table->unsignedBigInteger('mahasiswa_id');
             $table->unsignedBigInteger('jadwal_id');
+            $table->unsignedBigInteger('matakuliah_id');
 
             $table->foreign('mahasiswa_id')->references('user_id')->on('mahasiswas')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('jadwal_id')->references('id')->on('jadwals')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('matakuliah_id')->references('id')->on('jadwals')->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });

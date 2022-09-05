@@ -10,10 +10,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('title')
-    <title>Rekapan Absen Mahasiswa | Presensi Teknik Elektro</title>
-@endsection
-
 @section('content')
     <div class="">
         <div class="row">
@@ -54,6 +50,7 @@
                                     <td class="border border-slate-700 py-4 px-6">
                                         {{ $item->keterangan }}
                                     </td>
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

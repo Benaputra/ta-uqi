@@ -1,17 +1,14 @@
 @extends('layouts.master')
 
 {{-- Link Link --}}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
-{{-- <link rel="stylesgeet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css"> --}}
-<link rel="stylesheet" href="{{asset('css/custom.css')}}">
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
-@section('title')
-    <title>Rekapan Absen Mahasiswa | Presensi Teknik Elektro</title>
-@endsection
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
     <div class="">
@@ -21,33 +18,57 @@
                     <table class="table table-striped">
                         <thead class="">
                             <tr>
-                                <th scope="col" class=" border border-slate-600 py-3 px-6">
-                                    No
-                                </th>
                                 <th scope="col" class="border border-slate-600 py-3 px-6">
                                     Nama Matakuliah
                                 </th>
                                 <th scope="col" class="border border-slate-600 py-3 px-6">
-                                    Pertemuan
+                                    Hadir
                                 </th>
                                 <th scope="col" class="border border-slate-600 py-3 px-6">
-                                    Keterangan
+                                    Sakit
+                                </th>
+                                <th scope="col" class="border border-slate-600 py-3 px-6">
+                                    Izin
+                                </th>
+                                <th scope="col" class="border border-slate-600 py-3 px-6">
+                                    Tidak Hadir
+                                </th>
+                                <th scope="col" class="border border-slate-600 py-3 px-6">
+                                    Total Pertemuan
+                                </th>
+                                <th scope="col" class="border border-slate-600 py-3 px-6">
+                                    Status Kompen
+                                </th>
+                                <th scope="col" class="border border-slate-600 py-3 px-6">
+                                    Surat Peringatan
                                 </th>
                          </tr>
                         </thead>
                         <tbody>
                                 <tr class="">
                                     <td class=" border border-slate-700 py-4 px-6">
-                                        {{-- {{ $loop->iteration }} --}}
-                                    </td>
-                                    <td class=" border border-slate-700 py-4 px-6">
-                                        {{ $item->jadwal->matakuliah->name_matakuliah->first() }}
+                                        {{ $absen->first()->jadwal->matakuliah->name_matakuliah }}
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
-                                        {{ $item->pertemuan->count() }}
+                                        {{ $hadir }} Pertemuan
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
-                                        {{ $item->keterangan->count() }}
+                                        {{ $sakit }} Pertemuan
+                                    </td>
+                                    <td class="border border-slate-700 py-4 px-6">
+                                        {{ $izin }} Pertemuan
+                                    </td>
+                                    <td class="border border-slate-700 py-4 px-6">
+                                        {{ $tidak_hadir }} Pertemuan
+                                    </td>
+                                    <td class="border border-slate-700 py-4 px-6">
+                                        {{ $pertemuan }} Pertemuan
+                                    </td>
+                                    <td class="border border-slate-700 py-4 px-6">
+                                        {{$kompen}} Jam
+                                    </td>
+                                    <td class="border border-slate-700 py-4 px-6">
+                                        {{$sp}}
                                     </td>
                                 </tr>
                         </tbody>
@@ -57,9 +78,5 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    @endsection
+    <script></script>
+@endsection

@@ -28,7 +28,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Mahasiswa</th>
-                            <th>Jadwal ID</th>
+                            <th>Jadwal Hari</th>
                             <th width="180px">Action</th>
                         </tr>
                     </thead>

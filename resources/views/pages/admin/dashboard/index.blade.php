@@ -30,13 +30,13 @@
                 <div class="col-md-6 ml-auto mr-auto">
                    <div class="profile">
                         <div class="avatar">
-                            <img src="{{asset('frontend\img\polnep.png')}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                            <center><img src="{{asset('frontend\img\polnep.png')}}" alt="Circle Image" class="img-raised rounded-circle img-fluid" width="300" height="300"></center>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="description text-center">
-                <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+                <p></p>
             </div>
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto">

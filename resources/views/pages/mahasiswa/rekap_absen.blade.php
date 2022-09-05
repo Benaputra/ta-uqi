@@ -33,22 +33,20 @@
                          </tr>
                         </thead>
                         <tbody>
-                            @foreach ($absen as $item)
                                 <tr class="">
                                     <td class=" border border-slate-700 py-4 px-6">
-                                        {{ $loop->iteration }}
+                                        {{-- {{ $loop->iteration }} --}}
                                     </td>
                                     <td class=" border border-slate-700 py-4 px-6">
-                                        {{ $item->jadwal->matakuliah->name_matakuliah }}
+                                        {{ $item->jadwal->matakuliah->name_matakuliah->first() }}
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
-                                        {{ $item->pertemuan }}
+                                        {{ $item->pertemuan->count() }}
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
-                                        {{ $item->keterangan }}
+                                        {{ $item->keterangan->count() }}
                                     </td>
                                 </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </form>

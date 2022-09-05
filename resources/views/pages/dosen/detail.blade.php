@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
+@section('title')
+    <title>Halaman Detail | Presensi Teknik Elektro</title>
+@endsection
+
 @section('content')
     <div class="">
         <div class="row">
@@ -65,18 +69,15 @@
                                             @csrf
                                             <input type="hidden" name="id{{ $items->id }}"
                                                 value="{{ $items->id }}">
-                                            <label for="">Hadir</label>
+                                            <label class="radio-inline" for="">Hadir</label>
                                             <input class=" {{ $items->id }}" type="radio"
                                                 name="keterangan{{ $items->id }}" value="Hadir">
-                                            <hr>
-                                            <label for="">Sakit</label>
+                                            <label class="radio-inline" for="">Sakit</label>
                                             <input class=" {{ $items->id }}" type="radio"
                                                 name="keterangan{{ $items->id }}" value="Sakit">
-                                            <hr>
-                                            <label for="">Izin</label>
+                                            <label class="radio-inline" for="">Izin</label>
                                             <input class=" {{ $items->id }}" type="radio"
                                                 name="keterangan{{ $items->id }}" value="Absen">
-
                                             <input type="hidden" name="mahasiswa_id{{ $items->id }}"
                                                 value="{{ $items->mahasiswa->first()->id }}">
                                             <input type="hidden" name="dosen_id{{ $items->id }}"

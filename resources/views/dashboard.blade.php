@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+    <title>Presensi Teknik Elektro</title>
+@endsection
 {{-- Link Link --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
@@ -23,7 +25,7 @@
     <div class="">
         <div class="row">
             <div class="col-12 table-responsive bdr">
-                
+
                 @role('mahasiswa')
                     <table
                         class="table table-striped">

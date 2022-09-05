@@ -39,7 +39,7 @@ class KelasKuliahController extends Controller
                     // return "hehe";
                 })
                 ->editColumn('jadwal_id', function ($data) {
-                    return $data->jadwal->first()->hari;
+                    return $data->jadwal->hari;
                     // return "hehe";
                 })
                 ->addColumn('action', function ($data) {

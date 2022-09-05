@@ -15,6 +15,10 @@
     <h6 class="m-0 font-weight-bold text-primary">Jadwal Tabel</h6>
 @endsection
 
+@section('title')
+    <title>Data Jadwal | Presensi Teknik Elektro</title>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">

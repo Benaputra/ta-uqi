@@ -24,6 +24,7 @@ class AdminSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
         $user->assignRole('admin');
+
         $user = User::create([
             'name' => 'Admin Informatika',
             'email' => 'informatika@mail.com',

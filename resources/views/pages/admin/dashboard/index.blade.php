@@ -3,8 +3,24 @@
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
-<link rel="stylesgeet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
+{{-- <link rel="stylesgeet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css"> --}}
 <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+
+@section('title')
+    @role('admin')
+        <title>Dashboard Admin | Presensi Teknik Elektro</title>
+    @endrole
+    @role('mahasiswa')
+        <title>Dashboard Mahasiswa | Presensi Teknik Elektro</title>
+    @endrole
+    @role('dosen')
+        <title>Dashboard Dosen | Presensi Teknik Elektro</title>
+    @endrole
+    @role('AdminElektronika|AdminListrik|AdminInformatika')
+        <title>Dashboard Prodi | Presensi Teknik Elektro</title>
+    @endrole
+@endsection
+
 @section('content')
 <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
 <div class="main main-raised">
@@ -106,23 +122,6 @@
                                     Rekapan Presensi
                                 </a>
                             </li>
-                        @endrole
-
-                        @role('dosen')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{{url('/dashboard/rekap-absen')}}}" >
-                            <i class="material-icons">task</i>
-                                Rekapan Presensi
-                            </a>
-                        </li>
-                        @endrole
-                        @role('mahasiswa')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{{url('/dashboard/rekap-absen')}}}" >
-                            <i class="material-icons">task</i>
-                                Rekapan Presensi
-                            </a>
-                        </li>
                         @endrole
                       </ul>
                     </div>

@@ -15,6 +15,6 @@ class RuanganTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Ruangan::factory()->count(10)->create();
+        \App\Models\Ruangan::factory()->count(5)->create();
     }
 }

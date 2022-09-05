@@ -20,6 +20,10 @@ class KelasKuliah extends Model
     {
         return $this->belongsTo(Jadwal::class,'jadwal_id','id');
     }
+    public function matakuliah()
+    {
+        return $this->belongsTo(Matakuliah::class,'matakuliah_id','id');
+    }
 
     // public function getMatakuliah()
     // {

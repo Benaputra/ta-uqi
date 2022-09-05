@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
+@section('title')
+        <title>Data Dosen | Presensi Teknik Elektro</title>
+@endsection
+
 @section('header-table')
     <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end" data-bs-toggle="modal"
         data-bs-target="#tambahDosen">Tambah Data</button>

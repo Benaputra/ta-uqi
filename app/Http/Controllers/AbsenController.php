@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
-use App\Models\Jadwal;
 use App\Models\Kelas;
-use App\Models\KelasKuliah;
+use App\Models\Jadwal;
 use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
+use App\Models\KelasKuliah;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,45 +33,6 @@ class AbsenController extends Controller
     public function index(Request $request, $id)
     {
         $jadwal = Jadwal::find($id);
-        // $mahasiswa = Mahasiswa::with('kelaskuliah')->where('kelas_id', $jadwal->kelas)->get();
-
-        // dd($mahasiswa);
-        // dd($mahasiswa->jadwal);
-        // $mata_kuliah=Matakuliah::all();
-        // $rekapAbsen=[];
-        // foreach($mata_kuliah as $makul){
-        //     foreach($mahasiswa as $mhs){
-        //         $hadir=0;
-        //         $alpa=0;
-        //         $sakit=0;
-        //         $izin=0;
-        //         $absenMakul=[];
-        //         foreach($mhs->absen as $absen){
-        //             if($absen->jadwal->matakuliah_id == $makul->id && $absen->mahasiswa_id == $mhs->id){
-        //                 if($absen->keterangan == 'hadir'){
-        //                     $hadir++;
-        //                 }else if($absen->keterangan == 'alpa'){
-        //                     $alpa++;
-        //                 }else if($absen->keterangan == 'sakit'){
-        //                     $sakit++;
-        //                 }else if($absen->keterangan == 'izin'){
-        //                     $izin++;
-        //                 }
-        //             }
-        //         }
-        //         $absenMakul=[
-        //             'nama_mahasiswa'=>$mhs->name_mahasiswa,
-        //             'mata_kuliah'=>$makul->name_matakuliah,
-        //             'makul_id'=>$makul->id,
-        //             'hadir'=>$hadir,
-        //             'alpa'=>$alpa,
-        //             'sakit'=>$sakit,
-        //             'izin'=>$izin,
-        //         ];
-        //         $rekapAbsen[]=$absenMakul;
-        //     }
-        // }
-        // dd($mahasiswa);
         $absen = Absen::where('jadwal_id', $jadwal->id)->get();
         if ($request->ajax()) {
             return DataTables::of($absen)
@@ -90,8 +52,12 @@ class AbsenController extends Controller
                         return 'Tidak Hadir';
                     }
                 })
-                
-                ->make(true);
+                ->addColumn('aksi', function($absen){
+                    $delete =
+                    '<a href="/admin/absen/destroy/'.$absen->id.'/" class="btn btn-danger"><i class="bi bi-trash"></i></a>';
+                    return $delete;
+                })
+                ->rawColumns(['aksi'])->make(true);
         }
         return view('pages.admin.absen.index', compact('jadwal'));
     }
@@ -204,5 +170,7 @@ class AbsenController extends Controller
     {
         $data = Absen::findOrFail($id);
         $data->delete();
+        Alert::success('Pesan', 'Data berhasil dihapus');
+        return back();
     }
 }

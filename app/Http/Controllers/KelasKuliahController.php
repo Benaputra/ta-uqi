@@ -26,13 +26,14 @@ class KelasKuliahController extends Controller
         $mahasiswa = Mahasiswa::all();
         $jadwal = Jadwal::all();
         $matakuliah = Matakuliah::all();
+        $kelas = Kelas::all();
 
         // $query = KelasKuliah::select(['tahun_ajaran','prodi_id', 'matakuliah_id', 'kelas_id', 'mahasiswa_id'])->get();
         // // dd($query);
         // return response()->json($query);
 
         if ($request->ajax()) {
-            $data = KelasKuliah::with(['mahasiswa','jadwal', 'matakuliah'])->get();
+            $data = KelasKuliah::with(['mahasiswa','jadwal', 'matakuliah', 'kelas'])->get();
             return DataTables::of($data)
 
                 ->editColumn('mahasiswa_id', function ($data) {
@@ -47,6 +48,10 @@ class KelasKuliahController extends Controller
                     return $data->matakuliah->name_matakuliah;
                     // return "hehe";
                 })
+                ->editColumn('kelas_id', function ($data) {
+                    return $data->kelas->name_kelas;
+                    // return "hehe";
+                })
                 ->addColumn('action', function ($data) {
                     return '
                 <button type="buton" name="edit" id="' . $data->id . '" class="edit btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i>Edit</button>
@@ -54,7 +59,7 @@ class KelasKuliahController extends Controller
                 })
                 ->make(true);
         }
-        return view('pages.admin.kelaskuliah.index', compact('mahasiswa', 'jadwal', 'matakuliah'));
+        return view('pages.admin.kelaskuliah.index', compact('mahasiswa', 'jadwal', 'matakuliah', 'kelas'));
     }
 
     /**
@@ -79,6 +84,7 @@ class KelasKuliahController extends Controller
             'mahasiswa_id' => 'required',
             'jadwal_id' => 'required',
             'matakuliah_id' => 'required',
+            'kelas_id' => 'required',
         );
 
         $error = Validator::make($request->all(), $rules);
@@ -91,6 +97,7 @@ class KelasKuliahController extends Controller
             'mahasiswa_id' => $request->mahasiswa_id,
             'jadwal_id' => $request->jadwal_id,
             'matakuliah_id' => $request->matakuliah_id,
+            'kelas_id' => $request->kelas_id,
         );
 
         KelasKuliah::create($form_data);
@@ -136,6 +143,7 @@ class KelasKuliahController extends Controller
             'mahasiswa_id' => 'required',
             'jadwal_id' => 'required',
             'matakuliah_id' => 'required',
+            'kelas_id' => 'required',
         );
 
         $error = Validator::make($request->all(), $rules);
@@ -148,6 +156,7 @@ class KelasKuliahController extends Controller
             'mahasiswa_id' => $request->mahasiswa_id,
             'jadwal_id' => $request->jadwal_id,
             'matakuliah_id' => $request->matakuliah_id,
+            'kelas_id' => $request->kelas_id,
         );
 
         KelasKuliah::whereId($request->hidden_id)->update($form_data);

@@ -30,6 +30,7 @@
                             <th>Mahasiswa</th>
                             <th>Hari Jadwal</th>
                             <th>Mata Kuliah</th>
+                            <th>Kelas</th>
                             <th width="180px">Action</th>
                         </tr>
                     </thead>
@@ -84,6 +85,18 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Kelas : </label>
+                            <select class="form-select" name="kelas_id" id="kelas_id">
+                                <option value="">Silahkan pilih Kelas</option>
+                                @foreach ($kelas as $item)
+                                    @if (old('kelas_id') == $item->id)
+                                    @else
+                                        <option value="{{ $item->id }}">{{ $item->name_kelas }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                         <input type="hidden" name="action" id="action" value="Add" />
                         <input type="hidden" name="hidden_id" id="hidden_id" />
                     </div>
@@ -128,6 +141,7 @@
                 {data : 'mahasiswa_id', name: 'mahasiswa_id'},
                 {data : 'jadwal_id', name: 'jadwal_id'},
                 {data : 'matakuliah_id', name: 'matakuliah_id'},
+                {data : 'kelas_id', name: 'kelas_id'},
                 {data : 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
@@ -204,6 +218,7 @@
                     $('#mahasiswa_id').val(data.result.mahasiswa_id);
                     $('#jadwal_id').val(data.result.jadwal_id);
                     $('#matakuliah_id').val(data.result.matakuliah_id);
+                    $('#kelas_id').val(data.result.kelas_id);
                     $('#hidden_id').val(id);
                     $('.modal-title').text('Form Edit Data');
                     $('#action_button').val('Update');

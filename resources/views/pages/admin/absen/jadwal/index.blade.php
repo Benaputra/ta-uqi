@@ -17,8 +17,8 @@
 @endsection
 
 @section('header-table')
-    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button>
-    <h6 class="m-0 font-weight-bold text-primary">Mahasiswa Tabel</h6>
+    {{-- <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button> --}}
+    <h6 class="m-0 font-weight-bold text-primary">Presensi Tabel</h6>
 @endsection
 
 @section('content')
@@ -43,6 +43,8 @@
                             {{$data->jam_mulai ." sampai ".$data->jam_selesai}}</div>
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                            Semester {{$data->semester->name_semester}}</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                           Kelas {{$data->kelas->name_kelas}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>

@@ -15,8 +15,8 @@
 @endsection
 
 @section('header-table')
-    <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button>
-    <h6 class="m-0 font-weight-bold text-primary">Mahasiswa Tabel</h6>
+    {{-- <button type="button" name="create_record" id="create_record" class="btn btn-primary float-end">Tambah Data</button> --}}
+    <h6 class="m-0 font-weight-bold text-primary">Presensi Tabel</h6>
 @endsection
 
 @section('content')

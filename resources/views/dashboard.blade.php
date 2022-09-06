@@ -47,7 +47,7 @@
                                     Jam
                                 </th>
                                 <th scope="col" class="border border-slate-600 py-3 px-6">
-                                    Detail
+                                    Aksi
                                 </th>
 
                             </tr>

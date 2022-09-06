@@ -2,18 +2,20 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+        <div class="sidebar-brand-icon">
+          <img src="{{asset('frontend\img\polnep.png')}}" class="img-fluid logo-sidebar" alt="logo" width="50" height="50">
         </div>
-        <div class="sidebar-brand-text mx-3">Presensi</div>
-    </a>
+        <div class="sidebar-brand-text ml-2">
+          Presensi
+        </div>
+      </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -106,7 +108,7 @@
     @endrole
 
     @role('dosen')
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('dashboard/*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/dashboard/rekap-absen') }}">
                 <i class="fas fa-copy"></i>
                 Rekapan Presensi
@@ -268,9 +270,9 @@
     @endrole
 
     @role('mahasiswa')
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('dashboard/*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/dashboard/rekap-absen') }}">
-                <i class="material-icons">task</i>
+                <i class="fas fa-bookmark"></i>
                 Rekapan Mahasiswa
             </a>
         </li>

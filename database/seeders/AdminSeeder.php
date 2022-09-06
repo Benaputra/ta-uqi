@@ -100,7 +100,7 @@ class AdminSeeder extends Seeder
         $createMahasiswa = Mahasiswa::create([
             'name_mahasiswa'  => 'Mahasiswa 1',
             'nim'  => '1472583690',
-            'user_id' => $mahasiswa->id,
+            'user_id' => 5,
             'prodi_id' => 1,
             'kelas_id' => 1,
         ]);
@@ -108,7 +108,7 @@ class AdminSeeder extends Seeder
         $createMahasiswa = Mahasiswa::create([
             'name_mahasiswa'  => 'Mahasiswa 2',
             'nim'  => '1593578520',
-            'user_id' => $mahasiswa->id,
+            'user_id' => 6,
             'prodi_id' => 1,
             'kelas_id' => 1,
         ]);
@@ -116,7 +116,7 @@ class AdminSeeder extends Seeder
         $createMahasiswa = Mahasiswa::create([
             'name_mahasiswa'  => 'Mahasiswa 3',
             'nim'  => '1234567890',
-            'user_id' => $mahasiswa->id,
+            'user_id' => 7,
             'prodi_id' => 1,
             'kelas_id' => 1,
         ]);
@@ -124,19 +124,19 @@ class AdminSeeder extends Seeder
         $createDosen = Dosen::create([
             'name_dosen'  => 'Dosen 1',
             'nip'  => '5286394170',
-            'user_id' => $dosen->id,
+            'user_id' => 8,
         ]);
 
         $createDosen = Dosen::create([
             'name_dosen'  => 'Dosen 2',
-            'nip'  => '51963548452',
-            'user_id' => $dosen->id,
+            'nip'  => '5196354845',
+            'user_id' => 9,
         ]);
 
         $createDosen = Dosen::create([
             'name_dosen'  => 'Dosen 3',
             'nip'  => '0987654321',
-            'user_id' => $dosen->id,
+            'user_id' => 10,
         ]);
     }
 }

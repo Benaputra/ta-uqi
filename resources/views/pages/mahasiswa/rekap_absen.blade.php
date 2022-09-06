@@ -49,17 +49,17 @@
                                     <td class=" border border-slate-700 py-4 px-6">
                                         {{ $absen->first()->jadwal->matakuliah->name_matakuliah }}
                                     </td>
-                                    <td class="border border-slate-700 py-4 px-6">
-                                        {{ $hadir }} Pertemuan
+                                    <td class="border border-slate-700 py-4 px-6" align="center">
+                                        {{ $hadir }}
                                     </td>
-                                    <td class="border border-slate-700 py-4 px-6">
-                                        {{ $sakit }} Pertemuan
+                                    <td class="border border-slate-700 py-4 px-6" align="center">
+                                        {{ $sakit }}
                                     </td>
-                                    <td class="border border-slate-700 py-4 px-6">
-                                        {{ $izin }} Pertemuan
+                                    <td class="border border-slate-700 py-4 px-6" align="center">
+                                        {{ $izin }}
                                     </td>
-                                    <td class="border border-slate-700 py-4 px-6">
-                                        {{ $tidak_hadir }} Pertemuan
+                                    <td class="border border-slate-700 py-4 px-6" align="center">
+                                        {{ $tidak_hadir }}
                                     </td>
                                     <td class="border border-slate-700 py-4 px-6">
                                         {{ $pertemuan }} Pertemuan

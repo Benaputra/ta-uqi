@@ -86,7 +86,7 @@ class HomeController extends Controller
         if($kompen == 0){
             $sp = Null;
         }
-        else if($kompen <= 16){
+        else if($kompen <= 8 ){
             $sp = 'Surat Peringatan 1';
         }
         else if($kompen <= 32){
